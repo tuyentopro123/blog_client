@@ -1,0 +1,25 @@
+@use '../../sass/index.scss' as *;
+
+.pagination {
+    padding: 3rem;
+    margin-top: 2rem;
+    ul {
+        justify-content: center;
+        li {
+            margin:0 .5rem;
+            a {
+                padding: 2rem;
+                font-size: 1.5rem;
+            }
+        }
+    }
+}
+
+.MuiButtonBase-root {
+    color: $dark-txt-color!important;
+    border-color: $hover-txt-color!important;
+}
+
+.MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+    background-color:$hover-txt-color!important;
+}

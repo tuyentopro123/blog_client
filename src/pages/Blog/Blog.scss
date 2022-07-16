@@ -1,0 +1,46 @@
+@use '../../sass/index.scss' as *;
+
+.blog {
+    position: relative;
+    top: 1rem;
+    display: flex;
+    min-height:100vh;
+    @include tablet {
+        flex-direction: column;
+    }
+    &__container {
+        margin: 0 3rem;
+        width: 100%;
+        @include tablet {
+            width: initial;
+            margin-top: 9rem;
+        }
+    }
+
+    &__title {
+        width: 100%;
+        padding:3rem 2rem;
+        background: rgba(243, 248, 251, 0.6);
+        border-radius: 1rem;
+        span {
+            font-size: 4rem;
+            font-weight: bold;
+            text-transform:capitalize;
+            color: #041B3A;
+            @include tablet {
+               font-size: 3rem;
+            }
+        }
+    }
+
+    &__content {
+        min-height:50vh;
+        &__list {
+            span {
+                font-size: 3rem;
+                width: 100%;
+                margin:4rem 0;
+            }
+        }
+    }
+}

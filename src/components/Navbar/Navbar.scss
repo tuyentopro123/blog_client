@@ -1,0 +1,62 @@
+@use '../../sass/index.scss' as *;
+
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    overflow: visible;
+    @include mobile {
+        display: none;
+    }
+
+    @include tablet {
+        display: none;
+    }
+    &__container {
+        @include flex(center,center);
+        flex-direction: column;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 1rem;
+        padding: 0 1rem;
+        z-index: 8;
+        & > * {
+            padding: 1.5rem;
+            margin-bottom: .5rem;
+            cursor: pointer;
+        }
+    }
+
+
+    &__icon {
+        @include flex(center,center);
+        flex-direction: column;
+        position: relative;
+        border-radius:2rem;
+        width: 8rem;
+        height: 8rem;
+        margin: 1rem 0;
+        &:hover {
+            background-color: #434343;
+        }
+        &:before {
+            content: " ";
+            position: absolute;
+            height: 100%;
+            width: 100%;
+        }
+        svg {
+            margin:0 auto;
+            padding: .5rem;
+        }
+        h4 {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight:400;
+        }
+
+        &.active {
+            background-color: #434343;
+        }
+    }
+}
