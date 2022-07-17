@@ -4,7 +4,8 @@ import {useLocation, useParams,useNavigate} from 'react-router-dom'
 import { useDispatch,useSelector } from "react-redux";
 import { updateUsers } from "../../redux/apiRequest";
 
-import axios from "axios";
+import {publicRequest} from '../../utils/configAxios'
+
 import male from '../../assets/img/male.png'
 import female from '../../assets/img/female.png'
 import Grid from '../../components/utils/Grid/Grid'
@@ -57,7 +58,7 @@ const Infor = ({save}) => {
 
     const uploadImage = async(base64encodedImage) => {
         try {
-            const res = await axios.post(`/v1/user/upload/user/${currentUser._id}`, {data: base64encodedImage},{
+            const res = await publicRequest.post(`/v1/user/upload/user/${currentUser._id}`, {data: base64encodedImage},{
               })
             setUser({...user,image: `${res.data.url}`})
             await updateUsers({image: `${res.data.url}`},dispatch,user._id);
@@ -84,7 +85,7 @@ const Infor = ({save}) => {
     // GET USER
     const getUsers = async(id) => {
       try {
-        const res = await axios.get(`/v1/user/` + id);
+        const res = await publicRequest.get(`/v1/user/` + id);
         setUser(res.data)
         setPost(res.data.posts)
       } catch (err) {
@@ -104,7 +105,7 @@ const Infor = ({save}) => {
         
         const getSavePost = async(id) => {
             try {
-              const res = await axios.get(`/v1/post/saved/` + id);
+              const res = await publicRequest.get(`/v1/post/saved/` + id);
               setPost(res.data)
             } catch (err) {
               console.log(err)

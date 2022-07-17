@@ -8,7 +8,7 @@ import {useNavigate} from "react-router-dom"
 
 // Import material ui
 import Skeleton from "@mui/material/Skeleton";
-import axios from "axios";
+import {publicRequest} from "../../utils/configAxios";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
@@ -215,7 +215,7 @@ const Body = () => {
     // HIGHLIGHT POST
     const highLightPost = async () => {
       try {
-        const res = await axios.get("/v1/post/path/highlight");
+        const res = await publicRequest.get("/v1/post/path/highlight");
         setTopPost(res.data);
         controller = null;
       } catch (err) {
@@ -226,7 +226,7 @@ const Body = () => {
     // NEW POST
     const newPost = async () => {
       try {
-        const res = await axios.get("/v1/post/path/new");
+        const res = await publicRequest.get("/v1/post/path/new");
         setListPost(res.data);
         controller = null;
       } catch (err) {
@@ -237,7 +237,7 @@ const Body = () => {
     // COMMENT POST
     const commentPost = async () => {
         try {
-          const res = await axios.get("/v1/post/path/comment");
+          const res = await publicRequest.get("/v1/post/path/comment");
           setPopularPost(res.data);
           controller = null;
         } catch (err) {
@@ -248,7 +248,7 @@ const Body = () => {
        // RANDOM POST
     const randomPost = async () => {
         try {
-          const res = await axios.get("/v1/post/path/random");
+          const res = await publicRequest.get("/v1/post/path/random");
           setRandomPost(res.data);
           controller = null;
         } catch (err) {
@@ -259,7 +259,7 @@ const Body = () => {
     // VIEW POST
     const viewPost = async () => {
       try {
-        const res = await axios.get("/v1/post/path/view");
+        const res = await publicRequest.get("/v1/post/path/view");
         setViewPost(res.data);
         controller = null;
       } catch (err) {

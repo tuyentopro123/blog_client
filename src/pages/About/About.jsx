@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import './About.scss'
 import {useNavigate,Link} from 'react-router-dom'
-import axios from 'axios'
+import {publicRequest} from '../../utils/configAxios'
 import LazyLoad from "react-lazyload";
 import GetTime from "../../utils/GetTime";
 import Helmet from "../../components/Helmet/Helmet";
@@ -115,7 +115,7 @@ const About = () => {
      // RANDOM POST
     const getRandomPost = async () => {
         try {
-        const res = await axios.get("/v1/post/path/random");
+        const res = await publicRequest.get("/v1/post/path/random");
         setRandom(res.data.randomPosts1);
         } catch (err) {
         console.log(err);

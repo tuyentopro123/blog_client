@@ -8,7 +8,9 @@ import male from "../../assets/img/male.png";
 import female from "../../assets/img/female.png";
 import CreateSlug from "../utils/CreateSlug/CreateSlug";
 import { getNotification } from "../../redux/apiRequest";
-import axios from "axios";
+import {publicRequest} from "../../utils/configAxios";
+
+
 
 // Material ui
 import { yellow } from "@mui/material/colors";
@@ -136,7 +138,7 @@ const Header = () => {
     if (debounceSearchTerm) {
       const searchItem = async () => {
         try {
-          const res = await axios.get(
+          const res = await publicRequest.get(
             `/v1/post/path/result?searchQuery=${CreateSlug(debounceSearchTerm)}`
           );
           setResult(res.data);

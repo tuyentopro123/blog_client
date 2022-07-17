@@ -16,7 +16,8 @@ import Stack from '@mui/material/Stack';
 
 import Helmet from "../../components/Helmet/Helmet";
 import GetTime from "../../utils/GetTime";
-import axios from "axios";
+import {publicRequest} from '../../utils/configAxios'
+
 
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation,useParams,Link } from "react-router-dom";
@@ -71,7 +72,7 @@ const DetailPost = () => {
   const getUserPost = async (slug) => {
     dispatch(startFirstLoading())
     try {
-      const res = await axios.get("/v1/post/" + slug);
+      const res = await publicRequest.get("/v1/post/" + slug);
       dispatch(FinishLoading())
       setPost(res.data.userPost)
       setRelatedPost(res.data.relatedPost)
@@ -84,7 +85,7 @@ const DetailPost = () => {
   // GET COMMENT
   const getComment = async (id) => {
     try {
-      const res = await axios.get("/v1/comment/comment/" + id);
+      const res = await publicRequest.get("/v1/comment/comment/" + id);
       setComment(res.data)
       dispatch(resetFirstLoading())
     } catch (err) {
@@ -95,7 +96,7 @@ const DetailPost = () => {
   // UPDATE LIKE
   const updatePost = async (user,id) => {
     try {
-      const res = await axios.post("/v1/post/update/" + id,user);
+      const res = await publicRequest.post("/v1/post/update/" + id,user);
       setPost(res.data)
     } catch (err) {
       console.log(err)
@@ -105,7 +106,7 @@ const DetailPost = () => {
     // SAVE POST
     const savePost = async (user,id) => {
       try {
-        const res = await axios.post("/v1/post/save/" + id,user);
+        const res = await publicRequest.post("/v1/post/save/" + id,user);
         setPost(res.data)
       } catch (err) {
         console.log(err)
@@ -115,7 +116,7 @@ const DetailPost = () => {
  // RANDOM POST
  const getRandomPost = async () => {
   try {
-    const res = await axios.get("/v1/post/path/random");
+    const res = await publicRequest.get("/v1/post/path/random");
     setRandomPost(res.data.randomPosts1);
   } catch (err) {
     console.log(err);
