@@ -20,9 +20,9 @@ const Blog = ({ fields }) => {
   const allPost = useSelector((state) => state.post.post.AllPost);
 
   const pageNumber =
-    allPost.totalPost % 4 === 0
-      ? Math.floor(allPost.totalPost / 4)
-      : Math.floor(allPost.totalPost / 4) + 1;
+    allPost?.totalPost % 4 === 0
+      ? Math.floor(allPost?.totalPost / 4)
+      : Math.floor(allPost?.totalPost / 4) + 1;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
@@ -40,7 +40,6 @@ const Blog = ({ fields }) => {
   }, [pathname,category,currentPage]);
   
   const HandleSetPage = async (e, value) => {
-    console.log(value);
     if(category) {
       navigate(`/${fields}?category=${category}${value === 1 ? '' : `&pagePost=${value}`}`)
     } else {
