@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     '/v1',
     createProxyMiddleware({
-      target: 'http://localhost:8000',
+      target: 'https://server-app-js.herokuapp.com/',
       changeOrigin: true,
     })
   );
