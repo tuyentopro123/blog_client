@@ -57,8 +57,8 @@ const Blog = ({ fields }) => {
           <div className="blog__content">
             <div className="blog__content__list">
               <Grid col={2} md={2} sm={1} gapCol={15} gapRow={10}>
-                {allPost.post.length > 0 ? (
-                  allPost.post.map((post, index) => (
+                {allPost?.post.length > 0 ? (
+                  allPost?.post.map((post, index) => (
                     <BlogItem key={index} post={post} field={fields} />
                   ))
                 ) : (
@@ -66,11 +66,11 @@ const Blog = ({ fields }) => {
                 )}
               </Grid>
             </div>
-            {allPost.post.length > 0 && (
+            {allPost?.post.length > 0 && (
               <PaginationType
                 defaultPage={currentPage ? parseInt(currentPage) : 1}
                 func={HandleSetPage} 
-                numb={pageNumber}
+                numb={pageNumber ? pageNumber : 2}
               />  
             )}
           </div>
