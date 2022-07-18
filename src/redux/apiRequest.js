@@ -57,14 +57,6 @@ import {createCommentStart,
         getCommentFailed,
 } from "./commentSlice"
 
-
-const options = {
-  onUploadProgress: (ProgressEvent) => {
-    const {loaded,total} = ProgressEvent;
-    let percent = Math.floor((loaded * 100) / total)
-    console.log(`${loaded} Kb of ${total}kb | ${percent}%`)
-  }
-}
 // <-- ( AUTH ) ----------------------------->
     // LOGIN
     export const loginUser = async(dispatch) => {
