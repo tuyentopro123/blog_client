@@ -62,7 +62,7 @@ import {createCommentStart,
     export const loginUser = async(dispatch) => {
       dispatch(loginStart())
       try {
-          const res = await publicRequest.get("/v1/auth/login",{withCredentials: true})
+          const res = await publicRequest.get("/v1/auth/login")
           dispatch(loginSuccess(res.data));
           // navigate("/");
         }catch(err) {
