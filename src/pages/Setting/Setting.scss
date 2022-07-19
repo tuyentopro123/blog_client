@@ -101,6 +101,9 @@
                     background-size: cover;
                     border-radius:50%;
                     overflow: hidden;
+                    @include mobile {
+                        height: 7rem;
+                    }
                     &:hover {
                         .setting__infor__item__avatar__overlay{
                             cursor: pointer;
