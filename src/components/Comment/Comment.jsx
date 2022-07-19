@@ -20,7 +20,7 @@ import "tippy.js/animations/shift-away-extreme.css";
 
 import toast, { Toaster } from 'react-hot-toast';
 
-import axios from "axios";
+import {publicRequest} from "../../utils/configAxios";
 
 const Comment = ({ comment, id,receive }) => {
   const emoji = [
@@ -61,7 +61,6 @@ const Comment = ({ comment, id,receive }) => {
     },
   ];
 
-  console.log(comment)
 
   const [replyComment, setReplyComment] = useState([]);
   const dispatch = useDispatch();
@@ -181,7 +180,7 @@ const Comment = ({ comment, id,receive }) => {
       // GET REPLY OF COMMENT
       const getReplyComment = async (id) => {
         try {
-          const res = await axios.get("/v1/comment/reply/" + id);
+          const res = await publicRequest.get("/v1/comment/reply/" + id);
           setReplyComment(res.data.comment);
         } catch (err) {
           console.log(err)
