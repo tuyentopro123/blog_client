@@ -94,19 +94,19 @@ const Body = () => {
     },
     {
       title: "instagram",
-      href: "https://www.facebook.com/tea.live.167/",
+      href: "https://www.instagram.com/tealive4/",
       icon: InstagramIcon,
       color:orange,
     },
     {
       title: "linkedin",
-      href: "https://www.facebook.com/tea.live.167/",
+      href: "https://www.linkedin.com/in/tuy%C3%AAn-nguy%E1%BB%85n-v%C4%83n-47771b234/",
       icon: LinkedInIcon,
       color:purple,
     },
     {
       title: "github",
-      href: "https://www.facebook.com/tea.live.167/",
+      href: "https://github.com/tuyentopro123",
       icon: GitHubIcon,
       color:null,
     },

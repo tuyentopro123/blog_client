@@ -244,7 +244,7 @@ const Comment = ({ comment, id,receive }) => {
     <div id={id} className="comment">
       <div className="comment__userComment">
         <div className="comment__userComment__container">
-          <img src={comment.user.imgage} alt="" />
+          <img src={comment.user.image} alt="" />
           <div className="comment__commentContent">
             <div className="comment__commentContent__container">
               <div id="comment" className="comment__commentContent__body">
