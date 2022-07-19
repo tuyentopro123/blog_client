@@ -161,11 +161,15 @@ const Comment = ({ comment, id,receive }) => {
       inter: e.target.accessKey || e.target.name,
       reaction: e.target.id,
     };
-    await interComment(
+    await toast.promise(interComment(
       newInter,
       e.target.id,
       dispatch
-    );
+    ), {
+        loading: 'Đang tải...',
+        success: "cập nhật thành công",
+        error: 'lỗi đường truyền',
+      });
     // if (currentUser._id !== e.target.ariaRequired) {
     //   socket.emit("sendNotification", {
     //     sender_img: currentUser.image,
@@ -240,11 +244,11 @@ const Comment = ({ comment, id,receive }) => {
     <div id={id} className="comment">
       <div className="comment__userComment">
         <div className="comment__userComment__container">
-          <img src={comment.user_img} alt="" />
+          <img src={comment.user.imgage} alt="" />
           <div className="comment__commentContent">
             <div className="comment__commentContent__container">
               <div id="comment" className="comment__commentContent__body">
-                <h5>{comment.user_name}</h5>
+                <h5>{comment.user.username}</h5>
                 <div className="comment__commentContent__txt">
                   <span>{comment.comment}</span>
                 </div>
@@ -416,11 +420,11 @@ const Comment = ({ comment, id,receive }) => {
             key={index}
             className="comment__userComment__reaction"
           >
-            <img src={answer.user_img} alt="" />
+            <img src={answer.user.image} alt="" />
             <div className="comment__commentContent">
               <div className="comment__commentContent__container">
                 <div id="reaction" className="comment__commentContent__body">
-                  <h5>{answer.user_name}</h5>
+                  <h5>{answer.user.username}</h5>
                   <div className="comment__commentContent__txt">
                     <span>{answer.comment}</span>
                   </div>
