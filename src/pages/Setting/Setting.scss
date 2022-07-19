@@ -94,12 +94,19 @@
                 @include flex(center,flex-start);
                 &__image {
                     position: relative;
-                    padding: 5rem;
+                    width:10rem;
+                    height:10rem;
                     background-position: center;
                     background-repeat: no-repeat;
                     background-size: cover;
                     border-radius:50%;
                     overflow: hidden;
+                    &:hover {
+                        .setting__infor__item__avatar__overlay{
+                            cursor: pointer;
+                            display: inline-block!important;
+                        }
+                    }
                 }
                 span {
                     font-size: 1.5rem;

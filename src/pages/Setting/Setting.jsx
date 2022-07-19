@@ -172,6 +172,9 @@ const Setting = () => {
                             className="setting__infor__item__avatar__image"
                             style={{backgroundImage: `url(${user.image})`}}
                           >
+                            <label htmlFor="imgProfile">
+                              <div className="setting__infor__item__avatar__overlay overlay"></div>
+                            </label>
                             <input 
                                 type="file" 
                                 name='imgProfile' 
