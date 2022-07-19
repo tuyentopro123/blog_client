@@ -1,4 +1,5 @@
 import {publicRequest} from "../utils/configAxios";
+import axios from "axios"
 import {loginStart,
         loginSuccess,
         loginFailed,
@@ -62,7 +63,7 @@ import {createCommentStart,
     export const loginUser = async(dispatch) => {
       dispatch(loginStart())
       try {
-          const res = await publicRequest.get("/v1/auth/login")
+          const res = await publicRequest.get("/v1/auth/login",{withCredentials:true})
           dispatch(loginSuccess(res.data));
           // navigate("/");
         }catch(err) {
@@ -84,7 +85,7 @@ import {createCommentStart,
     export const logOut = async (dispatch,navigate) => {
       dispatch(logOutStart());
       try {
-        await publicRequest.get("/v1/auth/logout");
+        await publicRequest.get("/v1/auth/logout",{withCredentials:true});
         dispatch(logOutSuccess());
         navigate("/");
       } catch (err) {
