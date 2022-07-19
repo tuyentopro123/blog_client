@@ -52,9 +52,6 @@ import {createCommentStart,
         deleteCommentStart,
         deleteCommentSuccess,
         deleteCommentFailed,
-        getCommentStart,
-        getCommentSuccess,
-        getCommentFailed,
 } from "./commentSlice"
 
 

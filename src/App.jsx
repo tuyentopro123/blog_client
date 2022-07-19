@@ -84,7 +84,7 @@ function App() {
           <Route path='/about' element={<About/>}/>
           <Route path='/infor/:id' element={user ? <Infor save={false}/> : <Login /> }/>
           <Route path='/infor/save/:id' element={user ? <Infor save={true}/> : <Login /> }/>
-          <Route path='/newPost' element={<NewPost />}/>
+          <Route path='/newPost' element={user ? <NewPost /> : <Login /> }/>
           <Route path='/setting' element={<Setting />}/>
           <Route path='/post/:slug' element={user ? <DetailPost/> : <Login /> }/>
         </Routes>

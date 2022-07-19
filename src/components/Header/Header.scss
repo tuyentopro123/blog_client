@@ -95,6 +95,13 @@
             animation: Fade ease-in 0.2s;
             display: block;
           }
+          ul {
+            max-height: 40rem;
+            overflow-x: auto;
+          }
+          li {
+            margin: 2rem 0;
+          }
         }
       }
       &__title {

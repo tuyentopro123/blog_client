@@ -13,6 +13,7 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 // Skeleton
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
+import CloseIcon from '@mui/icons-material/Close';
 
 import Helmet from "../../components/Helmet/Helmet";
 import GetTime from "../../utils/GetTime";
@@ -33,6 +34,19 @@ import RelatedPost from "../../components/RelatedPost/RelatedPost";
 
 import toast, { Toaster } from 'react-hot-toast';
 const notifyError = (e) => toast.error(e);
+const notifySpam = () => toast('Vui lòng không spam',
+                                {
+                                  icon: '🤫',
+                                  style: {
+                                    borderRadius: '10px',
+                                    background: '#333',
+                                    color: '#fff',
+                                  },
+                                }
+                              );
+const notify = () => toast('Chức năng hiện đang bảo trì', {
+                        icon: '🛠',
+                      });
 
 const DetailPost = () => {
   const location = useLocation()
@@ -211,6 +225,18 @@ const DetailPost = () => {
     }
   };
 
+  // Share 
+  var click = 0;
+  const handleShare = () =>  {
+    if(click < 5) {
+      click++;
+      notify()
+    } else {
+      notifySpam();
+      click = 0;
+    }
+  }
+
   // Focus input
   const handleFocusComment = async () => {
     if (firstLoading) {
@@ -350,8 +376,9 @@ const DetailPost = () => {
                     }
                   </div>
                   <div
+                      id="share"
                       className="detailpost__header__share"
-                      // onClick={(e) => handleSetting(e)}
+                      onClick={handleShare}
                     >
                       <MoreHorizIcon sx={{ fontSize: 25,color: amber[400] }} />
                   </div>
@@ -472,6 +499,9 @@ const DetailPost = () => {
               onClick={handleOffComment}
             ></div>
           <div id="comment" className="detailpost__idea">
+              <div className="detailpost__idea__closeTab" onClick={handleOffComment}>
+                <CloseIcon sx={{fontSize:30}}/>
+              </div>
               <div className="detailpost__idea__container">
                 <div className="detailpost__idea__commentCount">
                   <h1>{post.commentCount} bình luận</h1>

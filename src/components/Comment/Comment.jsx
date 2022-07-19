@@ -13,6 +13,9 @@ import {setReplyCommentNoti} from "../../redux/commentSlice"
 import Stack from "@mui/material/Stack";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
+import CircularProgress from '@mui/material/CircularProgress';
+import {amber} from '@mui/material/colors';
+
 // Tippy
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
@@ -63,6 +66,7 @@ const Comment = ({ comment, id,receive }) => {
 
 
   const [replyComment, setReplyComment] = useState([]);
+  const [loading,setLoading] = useState(false)
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.login?.currentUser);
   const reply = useSelector((state) => state.comment.commentpost.replyComment);
@@ -179,8 +183,10 @@ const Comment = ({ comment, id,receive }) => {
 
       // GET REPLY OF COMMENT
       const getReplyComment = async (id) => {
+        setLoading(true)
         try {
           const res = await publicRequest.get("/v1/comment/reply/" + id);
+          setLoading(false)
           setReplyComment(res.data.comment);
         } catch (err) {
           console.log(err)
@@ -401,7 +407,9 @@ const Comment = ({ comment, id,receive }) => {
             <span>{`hiện ${comment.reaction_count} bình luận`}</span>
           )}
         </div>
-
+        <div className={`comment__loading ${loading ? "active" : ""}`}>
+          <CircularProgress sx={{fontSize:20,color:amber[400]}}/>
+        </div>
         {replyComment &&replyComment.map((answer, index) => (
           <div
             id={answer._id}
