@@ -3,6 +3,7 @@ import './Infor.scss'
 import {useLocation, useParams,useNavigate} from 'react-router-dom'
 import { useDispatch,useSelector } from "react-redux";
 import { updateUsers } from "../../redux/apiRequest";
+import {getUserStart,getUserSuccess} from "../../redux/userSlice"
 
 import {publicRequest} from '../../utils/configAxios'
 
@@ -35,7 +36,6 @@ import toast, { Toaster } from 'react-hot-toast';
 const notify = () => toast.success('Cập nhật ảnh đại diện thành công');
 
 const Infor = ({save}) => {
-    const location = useLocation()
     const {id} = useParams()
     const currentUser = useSelector((state)=> state.auth.login?.currentUser)
     const [loading,setLoading] = useState(false) 
@@ -84,8 +84,10 @@ const Infor = ({save}) => {
 
     // GET USER
     const getUsers = async(id) => {
+        dispatch(getUserStart())
       try {
         const res = await publicRequest.get(`/v1/user/` + id);
+        dispatch(getUserSuccess())
         setUser(res.data)
         setPost(res.data.posts)
       } catch (err) {
@@ -101,8 +103,7 @@ const Infor = ({save}) => {
           getUsers(id)
       }, [id]);
 
-      useEffect(() => {
-        
+      useEffect(() => { 
         const getSavePost = async(id) => {
             try {
               const res = await publicRequest.get(`/v1/post/saved/` + id);

@@ -31,7 +31,7 @@ function App() {
   // const location = useLocation()  
   const user = useSelector((state)=> state.auth.login?.currentUser)
   const loading = useSelector((state)=> state.post.post.isFetching)
-  console.log(user)
+  const loadingUser = useSelector((state)=> state.user.users.isFetching)
   const dispatch = useDispatch()
   // const [socket,setSocket] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -62,6 +62,10 @@ function App() {
   useEffect(() => {
     setIsLoading(loading)
   },[loading]) 
+
+  useEffect(() => {
+    setIsLoading(loadingUser)
+  },[loadingUser]) 
 
         
 
