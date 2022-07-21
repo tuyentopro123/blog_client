@@ -104,6 +104,7 @@ const Header = () => {
   // GET POST USER
   const input = useRef(null);
   const listResult = useRef(null);
+  const listResultMobile = useRef(null);
   const handleGetPost = async (item) => {
     input.current.value = "";
     listResult.current.classList.remove("active");
@@ -112,7 +113,7 @@ const Header = () => {
 
   const handleGetPostMobile = async (item) => {
     input.current.value = "";
-    listResult.current.classList.remove("active");
+    listResultMobile.current.classList.remove("active");
     document.querySelector(".header__searchMobile").classList.remove("active");
     navigate(`/post/${item.slug}`, { state: item._id });
   };
@@ -465,7 +466,7 @@ const Header = () => {
 
           <div className="header__searchResult">
             <div
-                ref={listResult}
+                ref={listResultMobile}
                 className={`header__body__result__tablet ${
                   searchTerm !== "" ? "active" : " "
                 }`}
