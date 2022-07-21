@@ -52,7 +52,8 @@
                                 width: 3.5rem;
                                 height: 3.5rem;
                                 border-radius: 50%;
-                                object-fit: cover;
+                                -o-object-fit: cover;
+                                   object-fit: cover;
                                 cursor: pointer;
                         }
                         span {
@@ -70,7 +71,10 @@
 
                         span {
                                 font-size: 1.5rem;
-                                user-select: none;
+                                -webkit-user-select: none;
+                                   -moz-user-select: none;
+                                    -ms-user-select: none;
+                                        user-select: none;
                         }
                     }
         }
@@ -106,7 +110,10 @@
 
                         &__detail {
                                 font-size: 1.4rem;
-                                user-select: none;
+                                -webkit-user-select: none;
+                                   -moz-user-select: none;
+                                    -ms-user-select: none;
+                                        user-select: none;
                                 & > * {
                                         display: none;
                                 }

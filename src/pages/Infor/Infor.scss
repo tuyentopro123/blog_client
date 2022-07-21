@@ -180,7 +180,10 @@
                 position: relative;
                 border-radius: .2rem;
                 cursor: pointer;
-                user-select: none;
+                -webkit-user-select: none;
+                   -moz-user-select: none;
+                    -ms-user-select: none;
+                        user-select: none;
                 // margin-bottom: .5rem;
                 &.selected {
                     border-bottom: .4rem solid $hover-txt-color;

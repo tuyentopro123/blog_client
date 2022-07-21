@@ -13,7 +13,8 @@
             img {
                 width: 5rem;
                 height: 5rem;
-                object-fit: cover;
+                -o-object-fit: cover;
+                   object-fit: cover;
                 border-radius: 50%;
                 margin-right:2rem;
             }
@@ -45,7 +46,8 @@
                 img {
                     width: 6rem;
                     height: 6rem;
-                    object-fit: cover;
+                    -o-object-fit: cover;
+                       object-fit: cover;
                     border-radius: 50%;
                     margin-right:2rem;
                 }
@@ -107,7 +109,8 @@
 
                 &.active {
                     #reaction {
-                        animation: FadeBackGround ease-in-out .8s;
+                        -webkit-animation: FadeBackGround ease-in-out .8s;
+                                animation: FadeBackGround ease-in-out .8s;
                     }
                 }
             }
@@ -224,7 +227,8 @@
                     top: 50%;
                     transform: translate(-50%, 50%);
                     min-width: 20rem;
-                    animation: Fade ease .2s;
+                    -webkit-animation: Fade ease .2s;
+                            animation: Fade ease .2s;
                     h2 {
                         cursor: pointer;
                         padding:1rem;
@@ -232,7 +236,10 @@
                         border-radius:.5rem;
                         font-weight: normal;
                         font-size: 1.5rem;
-                        user-select: none;
+                        -webkit-user-select: none;
+                           -moz-user-select: none;
+                            -ms-user-select: none;
+                                user-select: none;
                         color: $txt-color;
                         &:hover {
                             background-color: rgb(243, 243, 243);
@@ -267,7 +274,10 @@
                     .text {
                         color: $main-color;
                         cursor: pointer;
-                        user-select: none;
+                        -webkit-user-select: none;
+                           -moz-user-select: none;
+                            -ms-user-select: none;
+                                user-select: none;
                         &:hover {
                             text-decoration: underline;
                         }
@@ -341,7 +351,8 @@
 
         &.active {
             #comment {
-                animation: FadeBackGround ease-in-out .8s;
+                -webkit-animation: FadeBackGround ease-in-out .8s;
+                        animation: FadeBackGround ease-in-out .8s;
             }
         }
 
@@ -377,12 +388,30 @@
     }
 }
 
+@-webkit-keyframes Fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 @keyframes Fade {
     from {
         opacity: 0;
     }
     to {
         opacity: 1;
+    }
+}
+
+@-webkit-keyframes FadeBackGround {
+    from {
+        background-color: rgba(12, 199, 237,1);
+    }
+    to {
+        background-color: rgba(12, 199, 237, 0.133)
     }
 }
 

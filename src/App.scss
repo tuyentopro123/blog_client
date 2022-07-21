@@ -19,7 +19,10 @@ html {
     scroll-behavior: smooth;
     color: $txt-color;
     font-weight: 500;
-    user-select: unset;
+    -webkit-user-select: unset;
+       -moz-user-select: unset;
+        -ms-user-select: unset;
+            user-select: unset;
 
     @include tablet {
         font-size: 55%;
