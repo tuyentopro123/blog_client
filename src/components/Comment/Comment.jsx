@@ -330,7 +330,7 @@ const Comment = ({ comment, id,receive }) => {
                                 className="emoji-icon"
                                 src={item.src}
                                 name={item.name}
-                                aria-required={comment.user}
+                                aria-required={comment.user._id}
                                 id={comment._id}
                                 onClick={(e) => handleInter(e)}
                               />
@@ -347,7 +347,7 @@ const Comment = ({ comment, id,receive }) => {
                           : ""
                       }`}
                       id={comment._id}
-                      aria-required={comment.user}
+                      aria-required={comment.user._id}
                       accessKey="like"
                       onClick={(e) => handleInter(e)}
                     >
@@ -504,7 +504,7 @@ const Comment = ({ comment, id,receive }) => {
                                   className="emoji-icon"
                                   src={item.src}
                                   name={item.name}
-                                  aria-required={answer.user}
+                                  aria-required={answer.user._id}
                                   id={answer._id}
                                   aria-atomic={true}
                                   onClick={(e) => handleInter(e)}
@@ -521,7 +521,7 @@ const Comment = ({ comment, id,receive }) => {
                         }`}
                         id={answer._id}
                         aria-atomic={true}
-                        aria-required={answer.user}
+                        aria-required={answer.user._id}
                         accessKey="like"
                         onClick={(e) => handleInter(e)}
                       >
