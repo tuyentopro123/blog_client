@@ -97,7 +97,7 @@ const About = () => {
             desc:"Đây là template mình clone từ file Figma và sử dụng TailwindCSS",
             img: Hiking,
             github: "https://github.com/tuyentopro123/Hiking-concept-web-template",
-            web: "https://hiking-concept-web-template.netlify.app/"
+            web: "https://hiking-concept-web-template.vercel.app/"
         },
         {
             name:"Lengue of lengends template",
