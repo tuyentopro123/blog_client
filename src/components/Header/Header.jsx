@@ -83,7 +83,6 @@ const Header = () => {
 
   // GET NOTIFICATION
   const handleGetNotification = async (e) => {
-    console.log(user)
     if(user) {
       setLoading(true);
       await getNotification(dispatch, user._id);

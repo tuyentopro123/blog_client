@@ -8,24 +8,24 @@ import {
 } from "../../redux/apiRequest";
 import DialogComponent from "../utils/Dialog/Dialog";
 import GetTime from "../../utils/GetTime";
-import {setReplyCommentNoti} from "../../redux/commentSlice"
+import { setReplyCommentNoti } from "../../redux/commentSlice";
 // Material UI
 import Stack from "@mui/material/Stack";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
-import CircularProgress from '@mui/material/CircularProgress';
-import {amber} from '@mui/material/colors';
+import CircularProgress from "@mui/material/CircularProgress";
+import { amber } from "@mui/material/colors";
 
 // Tippy
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/animations/shift-away-extreme.css";
 
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 
-import {publicRequest} from "../../utils/configAxios";
+import { publicRequest } from "../../utils/configAxios";
 
-const Comment = ({ comment, id,receive }) => {
+const Comment = ({ comment, id, receive }) => {
   const emoji = [
     {
       title: "Thích",
@@ -64,9 +64,8 @@ const Comment = ({ comment, id,receive }) => {
     },
   ];
 
-
   const [replyComment, setReplyComment] = useState([]);
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.login?.currentUser);
   const reply = useSelector((state) => state.comment.commentpost.replyComment);
@@ -82,7 +81,6 @@ const Comment = ({ comment, id,receive }) => {
     inter_user: [],
   });
 
-
   // Get value comment from textarea
   const handleChange = (e) => {
     const value = e.target.value;
@@ -96,16 +94,13 @@ const Comment = ({ comment, id,receive }) => {
     document
       .getElementById(`reaction-${e.target.id}`)
       .classList.remove("active");
-    await toast.promise(createComment(
-      newComment,
-      dispatch
-      ), {
-        loading: 'Đang tải...',
-        success: "Bình luận thành công",
-        error: 'lỗi đường truyền',
-      });
-    await receive(comment.post)
-    await getReplyComment(comment._id)
+    await toast.promise(createComment(newComment, dispatch), {
+      loading: "Đang tải...",
+      success: "Bình luận thành công",
+      error: "lỗi đường truyền",
+    });
+    await receive(comment.post);
+    await getReplyComment(comment._id);
 
     // if (currentUser._id !== e.target.name) {
     //   socket.emit("sendNotification", {
@@ -138,10 +133,8 @@ const Comment = ({ comment, id,receive }) => {
       comment: "",
       reaction: e._id,
       inter_user: [],
-    })
-    document
-      .getElementById(`reaction-${e._id}`)
-      .classList.toggle("active");
+    });
+    document.getElementById(`reaction-${e._id}`).classList.toggle("active");
     document.getElementById(`textarea-${e._id}`).value = "";
     document.getElementById(`textarea-${e._id}`).focus();
   };
@@ -161,15 +154,11 @@ const Comment = ({ comment, id,receive }) => {
       inter: e.target.accessKey || e.target.name,
       reaction: e.target.id,
     };
-    await toast.promise(interComment(
-      newInter,
-      e.target.id,
-      dispatch
-    ), {
-        loading: 'Đang tải...',
-        success: "cập nhật thành công",
-        error: 'lỗi đường truyền',
-      });
+    await toast.promise(interComment(newInter, e.target.id, dispatch), {
+      loading: "Đang tải...",
+      success: "cập nhật thành công",
+      error: "lỗi đường truyền",
+    });
     // if (currentUser._id !== e.target.ariaRequired) {
     //   socket.emit("sendNotification", {
     //     sender_img: currentUser.image,
@@ -185,36 +174,33 @@ const Comment = ({ comment, id,receive }) => {
     if (e.target.ariaAtomic) getReplyComment(comment._id);
   };
 
-      // GET REPLY OF COMMENT
-      const getReplyComment = async (id) => {
-        setLoading(true)
-        try {
-          const res = await publicRequest.get("/v1/comment/reply/" + id);
-          setLoading(false)
-          setReplyComment(res.data.comment);
-        } catch (err) {
-          console.log(err)
-        }
-      };
+  // GET REPLY OF COMMENT
+  const getReplyComment = async (id) => {
+    setLoading(true);
+    try {
+      const res = await publicRequest.get("/v1/comment/reply/" + id);
+      setLoading(false);
+      setReplyComment(res.data.comment);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   // Get reply
   const handleGetReply = () => {
     if (replyComment.length > 0) {
       setReplyComment([]);
     } else {
-      getReplyComment( comment._id);
+      getReplyComment(comment._id);
     }
   };
 
   useEffect(() => {
-    if(reply) {
+    if (reply) {
       getReplyComment(comment._id);
     }
-    dispatch(setReplyCommentNoti())
-  },[reply])
-
-
-
+    dispatch(setReplyCommentNoti());
+  }, [reply]);
 
   // Delete comment
   const [visible, setVisible] = useState(false);
@@ -223,16 +209,19 @@ const Comment = ({ comment, id,receive }) => {
   };
   const receiveData = (data) => {
     if (data.delete) {
-      toast.promise(deleteComment(
-        data.user,
-        { comment: data.comment, post: comment.post },
-        dispatch
-      ), {
-          loading: 'Đang tải...',
+      toast.promise(
+        deleteComment(
+          data.user,
+          { comment: data.comment, post: comment.post },
+          dispatch
+        ),
+        {
+          loading: "Đang tải...",
           success: "Xóa Bình luận thành công",
-          error: 'lỗi đường truyền',
-        });
-      
+          error: "lỗi đường truyền",
+        }
+      );
+
       setReplyComment(replyComment.filter((e) => e._id !== data.comment));
       setVisible(data.visible);
     } else {
@@ -412,167 +401,170 @@ const Comment = ({ comment, id,receive }) => {
           )}
         </div>
         <div className={`comment__loading ${loading ? "active" : ""}`}>
-          <CircularProgress sx={{fontSize:20,color:amber[400]}}/>
+          <CircularProgress sx={{ fontSize: 20, color: amber[400] }} />
         </div>
-        {replyComment &&replyComment.map((answer, index) => (
-          <div
-            id={answer._id}
-            key={index}
-            className="comment__userComment__reaction"
-          >
-            <img src={answer.user.image} alt="" />
-            <div className="comment__commentContent">
-              <div className="comment__commentContent__container">
-                <div id="reaction" className="comment__commentContent__body">
-                  <h5>{answer.user.username}</h5>
-                  <div className="comment__commentContent__txt">
-                    <span>{answer.comment}</span>
+        {replyComment &&
+          replyComment.map((answer, index) => (
+            <div
+              id={answer._id}
+              key={index}
+              className="comment__userComment__reaction"
+            >
+              <img src={answer.user.image} alt="" />
+              <div className="comment__commentContent">
+                <div className="comment__commentContent__container">
+                  <div id="reaction" className="comment__commentContent__body">
+                    <h5>{answer.user.username}</h5>
+                    <div className="comment__commentContent__txt">
+                      <span>{answer.comment}</span>
+                    </div>
+                    <div
+                      className={`comment__commentContent__inter ${
+                        answer.inter_user.length > 0 ? "active" : ""
+                      }`}
+                    >
+                      <div className="comment__commentContent__inter__img">
+                        {answer.inter_user.length > 0 &&
+                          emoji.map(
+                            (item, index) =>
+                              answer.inter_user.find(
+                                (e) => e.inter === item.name
+                              ) && (
+                                <div
+                                  key={index}
+                                  style={{
+                                    backgroundImage: `url(${item.src})`,
+                                  }}
+                                ></div>
+                              )
+                          )}
+                      </div>
+                      <div className="comment__commentContent__inter__count">
+                        {answer.inter_user.length}
+                      </div>
+                      <div className="comment__commentContent__inter__toolbar">
+                        <ul>
+                          {answer.inter_user.map((user, index) => (
+                            <li key={index}>
+                              <span>{user.username}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
                   </div>
-                  <div
-                    className={`comment__commentContent__inter ${
-                      answer.inter_user.length > 0 ? "active" : ""
-                    }`}
-                  >
-                    <div className="comment__commentContent__inter__img">
-                      {answer.inter_user.length > 0 &&
-                        emoji.map(
-                          (item, index) =>
-                            answer.inter_user.find(
-                              (e) => e.inter === item.name
-                            ) && (
-                              <div
-                                key={index}
-                                style={{ backgroundImage: `url(${item.src})` }}
-                              ></div>
-                            )
-                        )}
+                  <div className="comment__commentContent__body__more">
+                    <div className="comment__commentContent__body__setting">
+                      <h2 onClick={handleDeleteComment}>Xóa bình luận</h2>
+                      <DialogComponent
+                        onReceiveData={receiveData}
+                        visible={visible}
+                        user={answer.user}
+                        comment={answer._id}
+                      />
                     </div>
-                    <div className="comment__commentContent__inter__count">
-                      {answer.inter_user.length}
-                    </div>
-                    <div className="comment__commentContent__inter__toolbar">
-                      <ul>
-                        {answer.inter_user.map((user, index) => (
-                          <li key={index}>
-                            <span>{user.username}</span>
-                          </li>
-                        ))}
-                      </ul>
+                    <div
+                      className="comment__commentContent__body__icon"
+                      onClick={(e) => handleSetting(e)}
+                    >
+                      <MoreHorizIcon sx={{ fontSize: 25 }} />
                     </div>
                   </div>
                 </div>
-                <div className="comment__commentContent__body__more">
-                  <div className="comment__commentContent__body__setting">
-                    <h2 onClick={handleDeleteComment}>Xóa bình luận</h2>
-                    <DialogComponent
-                      onReceiveData={receiveData}
-                      visible={visible}
-                      user={answer.user}
-                      comment={answer._id}
+                <div className="comment__commentContent__footer">
+                  <p>
+                    <span>
+                      <Tippy
+                        arrow={false}
+                        interactive={true}
+                        theme="custom"
+                        animation="shift-away-extreme"
+                        duration={[150, 0]}
+                        delay={[500, 0]}
+                        appendTo={() => document.body}
+                        content={
+                          <div>
+                            <Stack direction="row" spacing={2}>
+                              {emoji.map((item, index) => (
+                                <Tippy
+                                  key={index}
+                                  offset={[0, 15]}
+                                  arrow={false}
+                                  content={<h6>{item.title}</h6>}
+                                >
+                                  <img
+                                    className="emoji-icon"
+                                    src={item.src}
+                                    name={item.name}
+                                    aria-required={answer.user._id}
+                                    id={answer._id}
+                                    aria-atomic={true}
+                                    onClick={(e) => handleInter(e)}
+                                  />
+                                </Tippy>
+                              ))}
+                            </Stack>
+                          </div>
+                        }
+                      >
+                        <span
+                          className={`text ${
+                            answer.inter_user.length > 0 ? "active" : ""
+                          }`}
+                          id={answer._id}
+                          aria-atomic={true}
+                          aria-required={answer.user._id}
+                          accessKey="like"
+                          onClick={(e) => handleInter(e)}
+                        >
+                          Thích
+                        </span>
+                      </Tippy>
+                    </span>
+                    {"·"}
+                    <span
+                      className="text"
+                      id={answer._id}
+                      reaction={answer.reaction}
+                      onClick={(e) => handleAnswers(e)}
+                    >
+                      Trả lời
+                    </span>
+                    {"·"}
+                    <span style={{ userSelect: "none" }}>
+                      {GetTime(answer.createdAt)}
+                    </span>
+                  </p>
+                </div>
+                <div
+                  id={`reaction-${answer._id}`}
+                  className="comment__comment reaction"
+                >
+                  <div className="comment__comment__txt">
+                    <img src={currentUser.image} alt="" />
+                    <textarea
+                      id={`textarea-${answer._id}`}
+                      type="text"
+                      placeholder="Để lại bình luận của bạn"
+                      onChange={handleChange}
                     />
                   </div>
-                  <div
-                    className="comment__commentContent__body__icon"
-                    onClick={(e) => handleSetting(e)}
-                  >
-                    <MoreHorizIcon sx={{ fontSize: 25 }} />
-                  </div>
-                </div>
-              </div>
-              <div className="comment__commentContent__footer">
-                <p>
-                  <span>
-                    <Tippy
-                      arrow={false}
-                      interactive={true}
-                      theme="custom"
-                      animation="shift-away-extreme"
-                      duration={[150, 0]}
-                      delay={[500, 0]}
-                      appendTo={() => document.body}
-                      content={
-                        <div>
-                          <Stack direction="row" spacing={2}>
-                            {emoji.map((item, index) => (
-                              <Tippy
-                                key={index}
-                                offset={[0, 15]}
-                                arrow={false}
-                                content={<h6>{item.title}</h6>}
-                              >
-                                <img
-                                  className="emoji-icon"
-                                  src={item.src}
-                                  name={item.name}
-                                  aria-required={answer.user._id}
-                                  id={answer._id}
-                                  aria-atomic={true}
-                                  onClick={(e) => handleInter(e)}
-                                />
-                              </Tippy>
-                            ))}
-                          </Stack>
-                        </div>
-                      }
+                  <div className="comment__comment__btn reaction">
+                    <button id={answer._id} onClick={(e) => handleCancel(e)}>
+                      hủy
+                    </button>
+                    <button
+                      id={answer._id}
+                      name={answer.name}
+                      onClick={handleSubmit}
                     >
-                      <span
-                        className={`text ${
-                          answer.inter_user.length > 0 ? "active" : ""
-                        }`}
-                        id={answer._id}
-                        aria-atomic={true}
-                        aria-required={answer.user._id}
-                        accessKey="like"
-                        onClick={(e) => handleInter(e)}
-                      >
-                        Thích
-                      </span>
-                    </Tippy>
-                  </span>
-                  {"·"}
-                  <span
-                    className="text"
-                    id={answer._id}
-                    reaction={answer.reaction}
-                    onClick={(e) => handleAnswers(e)}
-                  >
-                    Trả lời
-                  </span>
-                  {"·"}
-                  <span style={{ userSelect: "none" }}>
-                    {GetTime(answer.createdAt)}
-                  </span>
-                </p>
-              </div>
-              <div
-                id={`reaction-${answer._id}`}
-                className="comment__comment reaction"
-              >
-                <div className="comment__comment__txt">
-                  <img src={currentUser.image} alt="" />
-                  <textarea
-                    id={`textarea-${answer._id}`}
-                    type="text"
-                    placeholder="Để lại bình luận của bạn"
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="comment__comment__btn reaction">
-                  <button id={answer._id} onClick={(e) => handleCancel(e)}>
-                    hủy
-                  </button>
-                  <button
-                    id={answer._id}
-                    name={answer.name}
-                    onClick={handleSubmit}
-                  >
-                    Bình luận
-                  </button>
+                      Bình luận
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );
