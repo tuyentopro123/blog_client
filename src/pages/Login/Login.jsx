@@ -12,11 +12,11 @@ const Login = () => {
 
       
   const handleGoogle = async() => {
-    window.open('https://server-app-js.herokuapp.com/auth/google',"_self")
+    window.open('https://my-blog-kfgs.vercel.app/auth/google',"_self")
   }
 
   const handleFacebook = async() => {
-    window.open('https://server-app-js.herokuapp.com/auth/facebook',"_self")
+    window.open('https://my-blog-kfgs.vercel.app/auth/facebook',"_self")
   }
 
 
