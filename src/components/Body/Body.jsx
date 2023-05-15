@@ -84,16 +84,16 @@ const Body = () => {
         "https://meta.vn/Data/image/2021/06/21/drama-la-gi-2.jpg",
     },
     {
-      text: "drama",
-      field: "life",
+      text: "nextJS",
+      field: "program",
       image:
-        "https://meta.vn/Data/image/2021/06/21/drama-la-gi-2.jpg",
+        "https://kanbox.vn/wp-content/uploads/2023/02/nextjs-cover.jpg",
     },
     {
-      text: "drama",
+      text: "film",
       field: "life",
       image:
-        "https://meta.vn/Data/image/2021/06/21/drama-la-gi-2.jpg",
+        "https://trengluong.files.wordpress.com/2017/02/film.jpg",
     },
     
   ];
