@@ -92,9 +92,9 @@
             }
 
             &__desc {
-                @include flex(center,flex-start);
+                @include flex(center,space-between);
                 & > * {
-                    margin-right: 2rem;
+                    // margin-right: 2rem;
                     font-size: 1.5rem;
                 }
                 &__content {
