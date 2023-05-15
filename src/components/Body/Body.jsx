@@ -316,7 +316,7 @@ const Body = () => {
           {/* <-----------First form------------>*/}
           <div className="body__post__firstForm">
             {listPost ? 
-            <List header="Recent Stories">
+            <List header="Recent Stories" style={{paddingBottom: 0}}>
               <Grid col={2} md={2} sm={1} gapCol={10} gapRow={10}>
                 {listPost.map((post, index) => (
                   <Thumbnail key={index} post={post} />
