@@ -316,7 +316,7 @@ const Body = () => {
           {/* <-----------First form------------>*/}
           <div className="body__post__firstForm">
             {listPost ? 
-            <List header="Recent Stories" style={{paddingBottom: 0}}>
+            <List header="Recent Stories">
               <Grid col={2} md={2} sm={1} gapCol={10} gapRow={10}>
                 {listPost.map((post, index) => (
                   <Thumbnail key={index} post={post} />
@@ -380,7 +380,7 @@ const Body = () => {
 
           <div className="body__post__secondForm"> 
             {popularPost ? 
-            <List header="popular stories">
+            <List header="popular stories" style={{paddingBottom: 0}}>
               <Swiper {...swiperOptionsV2}>
                 {popularPost.map((post, index) => (
                   <SwiperSlide key={index}>
