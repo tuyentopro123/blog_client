@@ -85,7 +85,7 @@ function App() {
           <Route path='/about' element={<About/>}/>
           <Route path='/infor/:id' element={user ? <Infor save={false}/> : <Login /> }/>
           <Route path='/infor/save/:id' element={user ? <Infor save={true}/> : <Login /> }/>
-          <Route path='/newPost' element={user ? <NewPost /> : <Login /> }/>
+          <Route path='/add' element={user ? <NewPost /> : <Login /> }/>
           <Route path='/setting' element={<Setting />}/>
           <Route path='/post/:slug' element={user ? <DetailPost/> : <Login /> }/>
           {/* <Route path='/admin' element={user?.isAdmin ? <Admin/> : <Home/> }/> */}
@@ -198,7 +198,7 @@ function SpeedDialTooltip({user}) {
       name: 'Add',
     },
     { 
-      icon: <HomeIcon onClick={() => handleNavigate("home")} sx={{ fontSize:25,color: amber[500] }}/>, 
+      icon: <HomeIcon onClick={() => handleNavigate("")} sx={{ fontSize:25,color: amber[500] }}/>, 
       name: 'Home',
     },
     { 
