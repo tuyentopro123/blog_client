@@ -95,18 +95,7 @@ const Body = () => {
       image:
         "https://meta.vn/Data/image/2021/06/21/drama-la-gi-2.jpg",
     },
-    {
-      text: "drama",
-      field: "life",
-      image:
-        "https://meta.vn/Data/image/2021/06/21/drama-la-gi-2.jpg",
-    },
-    {
-      text: "drama",
-      field: "life",
-      image:
-        "https://meta.vn/Data/image/2021/06/21/drama-la-gi-2.jpg",
-    },
+    
   ];
 
   const social = [
