@@ -433,7 +433,7 @@ const Body = () => {
 
           <div className="body__post__thirdForm">
             {randomPost ? 
-            <List header="You Don't miss">
+            <List header="You Don't miss" style={{paddingBottom: 0,minHeight: "75vh"}}>
               <div className="body__post__thirdForm__container">
                 <Swiper {...swiperOptionsV3}>
                   {Object.keys(randomPost).length > 0 && randomPost.randomPosts1.map((post, index) => (
