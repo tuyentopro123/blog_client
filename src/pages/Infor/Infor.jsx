@@ -127,7 +127,7 @@ const Infor = ({save}) => {
                 <div className="infor__container">
                     <div className="infor__simple">
                         {user ? 
-                        <div className="infor__simple__bg" style={{backgroundImage: `url(https://www.egeniq.nl/sites/default/files/2020-06/frontend_webdeveloper.jpg)`}}>
+                        <div className="infor__simple__bg" style={{backgroundImage: `url(https://static.vecteezy.com/system/resources/previews/000/549/810/original/vector-abstract-technology-background-technology-digital-world-of-business-information-futuristic-blue-virtual-graphic-interface.jpg)`}}>
                         </div>
                         :
                         <Skeleton sx={{ bgcolor: 'grey.800' }} variant="rectangular" height={400} />
