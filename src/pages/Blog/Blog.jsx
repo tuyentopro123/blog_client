@@ -46,7 +46,6 @@ const Blog = ({ fields }) => {
       navigate(`/${fields}${value === 1 ? '' : `?pagePost=${value}`}`)
     }
   };
-  console.log(allPost)
   return (
     <Helmet title="Blog">
       <main className="blog">
