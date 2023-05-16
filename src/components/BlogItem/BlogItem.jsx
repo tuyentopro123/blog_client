@@ -23,15 +23,15 @@ const BlogItem = ({ post }) => {
   const handleGetPost = () => {
     navigate(`/post/${post.slug}`,{state: post._id});
   };
-  useEffect(() => {
-    let domParser = new DOMParser();
-    let doc = domParser.parseFromString(post.content, "text/html");
-    console.log(doc)
-    doc.body.childNodes.forEach((node) => {
-      content.current.appendChild(node.cloneNode(true));
-    });
-    setRefresh(!refresh)
-  }, [post.content]);
+  // useEffect(() => {
+  //   let domParser = new DOMParser();
+  //   let doc = domParser.parseFromString(post.content, "text/html");
+  //   console.log(doc)
+  //   doc.body.childNodes.forEach((node) => {
+  //     content.current.appendChild(node.cloneNode(true));
+  //   });
+  //   setRefresh(!refresh)
+  // }, [post.content]);
 
   return (
     <div className="blogitem">
