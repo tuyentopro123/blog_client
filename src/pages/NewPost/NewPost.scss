@@ -30,7 +30,8 @@
             img {
                 max-height: 20rem;
                 margin: 1rem 0 2rem 0;
-                padding:1rem;
+                padding: 1rem;
+                min-width: 20rem;
                 outline: 2px #ccc solid;
                 border-radius: 1rem;
             }
@@ -112,6 +113,18 @@
         }
 
     }
+}
+
+.loading_thumbnail {
+    border-radius: 1rem;
+    position: absolute;
+    width: 20rem;
+    height: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 1rem;
+    background-color: #1d1d1db0;
 }
 
 #program,#life {

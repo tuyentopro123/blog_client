@@ -15,6 +15,7 @@ import {publicRequest} from '../../utils/configAxios'
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import {amber} from '@mui/material/colors';
+import CircularProgress from "@mui/material/CircularProgress";
 
 import toast, { Toaster } from 'react-hot-toast';
 const notifySuccess = () => toast.success('Đăng bài thành công');
@@ -24,7 +25,7 @@ var quillObj = ReactQuill;
 const NewPost = () => {
     const navigate = useNavigate()
     const currentUser = useSelector((state)=> state.auth.login?.currentUser)
-
+    const [isLoading, setIsLoading] = useState(false);
     
 
     // Quill
@@ -79,10 +80,11 @@ const NewPost = () => {
     const handleUpload = (e) => {
         const file = e.target.files[0]
         const reader = new FileReader();
-        reader.readAsDataURL(file);
+        setIsLoading(true);
         reader.onloadend = () => {
             uploadImage(reader.result)
         }
+        reader.readAsDataURL(file);
     }
 
     const uploadImage = async(base64encodedImage) => {
@@ -93,6 +95,8 @@ const NewPost = () => {
             setPost({...post,imgPost: `${res.data.url}`})
         } catch(err) {
             console.error(err)
+        } finally {
+            setIsLoading(false); // Ẩn trạng thái loading
         }
     }
 
@@ -190,7 +194,12 @@ const NewPost = () => {
                     <div className="new__body__thumbnail">
                         <h2> Thêm ảnh thumbnail của bạn:</h2>
                         <label htmlFor="imgPost">
-                            <img src={post.imgPost || bg} alt="" />
+                            <div style={{position: 'relative'}}>
+                                <img src={post.imgPost || bg} alt="" />
+                                {isLoading && <div className='loading_thumbnail'>
+                                    <CircularProgress sx={{ fontSize: 20, color: amber[400] }} />
+                                </div>}
+                            </div>
                         </label><br/>
                         <input  
                             type="file" 
