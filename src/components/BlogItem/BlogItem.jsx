@@ -77,10 +77,10 @@ const BlogItem = ({ post }) => {
               <h1>{post.title}</h1>
             </div>
 
-            <div
+            {/* <div
               ref={content}
               className="blogitem__content__text__detail"
-            ></div>
+            ></div> */}
           </div>
         </div>
 
