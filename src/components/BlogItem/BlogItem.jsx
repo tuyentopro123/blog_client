@@ -30,7 +30,7 @@ const BlogItem = ({ post }) => {
     doc.body.childNodes.forEach((node) => {
       content.current.appendChild(node.cloneNode(true));
     });
-  }, []);
+  }, [post.content]);
 
   return (
     <div className="blogitem">
