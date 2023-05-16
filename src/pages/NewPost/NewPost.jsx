@@ -134,7 +134,7 @@ const NewPost = () => {
         }
       };
     
-    const handleClick =(e) => {
+    const handleClick = async(e) => {
         e.preventDefault()
         const newPost = {
             title: post.title,
@@ -145,7 +145,10 @@ const NewPost = () => {
             fields: post.fields,
             user:user._id
         }
-        handleCreatePost(newPost,user._id)
+        await toast.promise(handleCreatePost(newPost,user._id), {
+            loading: 'Đang tải...'
+        });
+        
     }
 
     // Add category
