@@ -124,13 +124,12 @@ const NewPost = () => {
     const handleCreatePost = async (post,id) => {
         try {
           await publicRequest.post(`/v1/post/post/` + id, post );
-          notifySuccess()
           const navigation = () => {
             navigate(`/`)
           }
           setTimeout(navigation,1600)
         } catch (err) {
-          notifyError("vui lòng nhập đủ thông tin")
+            console.log(err)
         }
       };
     
@@ -146,7 +145,9 @@ const NewPost = () => {
             user:user._id
         }
         await toast.promise(handleCreatePost(newPost,user._id), {
-            loading: 'Đang tải...'
+            loading: 'Đang tải...',
+            success: "Đăng bài thành công",
+            error: 'vui lòng nhập đủ thông tin',
         });
         
     }

@@ -24,6 +24,7 @@ const BlogItem = ({ post }) => {
     navigate(`/post/${post.slug}`,{state: post._id});
   };
   useEffect(() => {
+    console.log(post)
     let domParser = new DOMParser();
     let doc = domParser.parseFromString(post.content, "text/html");
     doc.body.childNodes.forEach((node) => {
