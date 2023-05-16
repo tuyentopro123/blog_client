@@ -81,6 +81,7 @@
 
         &__content {
                 @include flex(center,space-between);
+                height: 7rem;
                 &:hover {
                         h1 {
                                 color: $hover-txt-color;
