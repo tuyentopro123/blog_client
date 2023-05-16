@@ -15,7 +15,7 @@ const BlogItem = ({ post }) => {
   const content = useRef(null);
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.auth.login?.currentUser);
-
+  const [refresh,setRefresh] = useState(true)
   // GET USER
   const handleGetUser = async () => {
     navigate(`/infor/${post.user._id}`,{state: post.user_id});
@@ -30,6 +30,7 @@ const BlogItem = ({ post }) => {
     doc.body.childNodes.forEach((node) => {
       content.current.appendChild(node.cloneNode(true));
     });
+    setRefresh(!refresh)
   }, [post.content]);
 
   return (
