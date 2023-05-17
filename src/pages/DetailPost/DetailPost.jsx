@@ -236,7 +236,6 @@ const DetailPost = () => {
       click = 0;
     }
   }
-console.log(post)
   // Focus input
   const handleFocusComment = async () => {
     if (firstLoading) {
@@ -299,7 +298,8 @@ console.log(post)
   }, [commentOfPost]);
 
   useEffect(() => {
-    if (showComment) {
+  console.log(post)
+    if (showComment && post) {
       handleFocusComment();
       if (redirectNoti?.action === "interComment") {
         handleScrollElement(redirectNoti.reaction);
