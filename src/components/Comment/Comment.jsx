@@ -24,45 +24,9 @@ import "tippy.js/animations/shift-away-extreme.css";
 import toast, { Toaster } from "react-hot-toast";
 
 import { publicRequest } from "../../utils/configAxios";
+import { emoji } from "../../raw/raw"
 
 const Comment = ({ comment, id, receive, listStatus }) => {
-  const emoji = [
-    {
-      title: "Thích",
-      name: "like",
-      src: "https://res.cloudinary.com/tealive/image/upload/v1653141301/emoji/c09iyar2pqvkubulcpho.png",
-    },
-    {
-      title: "Yêu Thích",
-      name: "heart",
-      src: "https://res.cloudinary.com/tealive/image/upload/v1653141301/emoji/irlnd98a5vdris5ri4m8.png",
-    },
-    {
-      title: "Vui vẻ",
-      name: "funny",
-      src: "https://res.cloudinary.com/tealive/image/upload/v1653141301/emoji/dagzhj3q6miykzqjmqis.png",
-    },
-    {
-      title: "HaHa",
-      name: "smile",
-      src: "https://res.cloudinary.com/tealive/image/upload/v1653141302/emoji/cls4albnfxfogfxwil0z.png",
-    },
-    {
-      title: "Sad",
-      name: "cry",
-      src: "https://res.cloudinary.com/tealive/image/upload/v1653141301/emoji/x1l5wdj4puqrda2bfimv.png",
-    },
-    {
-      title: "Wow",
-      name: "surprised",
-      src: "https://res.cloudinary.com/tealive/image/upload/v1653141302/emoji/d8qmeeuoud0sl2i6qjmq.png",
-    },
-    {
-      title: "Phẫn nộ",
-      name: "angry",
-      src: "https://res.cloudinary.com/tealive/image/upload/v1653141301/emoji/ldmpjgyrqgnewlnffo0d.png",
-    },
-  ];
 
   const [replyComment, setReplyComment] = useState([]);
   const [loading, setLoading] = useState(false);

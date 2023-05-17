@@ -8,7 +8,7 @@ import { useDispatch,useSelector} from "react-redux";
 import { grey } from "@mui/material/colors";
 import {publicRequest} from "../../utils/configAxios";
 
-
+import {emojiNoti} from "../../raw/raw"
 // import { getUserPost } from "../../redux/apiRequest"
 
 import {redirectNotificationStart} from "../../redux/authSlice"
@@ -19,40 +19,7 @@ const Notification = ({data}) => {
   const user = useSelector((state)=> state.auth.login?.currentUser)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-    const emojiNoti = [
-        {
-            name: "like",
-          src: "https://res.cloudinary.com/tealive/image/upload/v1653141301/emoji/c09iyar2pqvkubulcpho.png",
-        },
-        {
-          name: "heart",
-          src: "https://res.cloudinary.com/tealive/image/upload/v1653141301/emoji/irlnd98a5vdris5ri4m8.png",
-        },
-        {
-          name: "funny",
-          src: "https://res.cloudinary.com/tealive/image/upload/v1653141301/emoji/dagzhj3q6miykzqjmqis.png",
-        },
-        {
-          name: "smile",
-          src: "https://res.cloudinary.com/tealive/image/upload/v1653141302/emoji/cls4albnfxfogfxwil0z.png",
-        },
-        {
-          name: "cry",
-          src: "https://res.cloudinary.com/tealive/image/upload/v1653141301/emoji/x1l5wdj4puqrda2bfimv.png",
-        },
-        {
-          name: "surprised",
-          src: "https://res.cloudinary.com/tealive/image/upload/v1653141302/emoji/d8qmeeuoud0sl2i6qjmq.png",
-        },
-        {
-          name: "angry",
-          src: "https://res.cloudinary.com/tealive/image/upload/v1653141301/emoji/ldmpjgyrqgnewlnffo0d.png",
-        },
-        {
-          name: "comment",
-          src: "https://res.cloudinary.com/tealive/image/upload/v1653141301/emoji/z7hvqmibkvhctbi0ov57.png",
-        },
-    ];
+
 
     const handleNoti = async(noti) => {
       document.querySelector(".header__notification").click()
