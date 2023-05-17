@@ -51,7 +51,7 @@ const notify = () => toast('Chức năng hiện đang bảo trì', {
 const DetailPost = () => {
   const location = useLocation()
   const {slug} = useParams()
-  
+  console.log(location)
   const dispatch = useDispatch();
   
   const currentUser = useSelector((state) => state.auth.login?.currentUser);
