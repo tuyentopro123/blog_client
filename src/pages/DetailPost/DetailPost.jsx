@@ -236,11 +236,11 @@ const DetailPost = () => {
       click = 0;
     }
   }
-
+console.log(post)
   // Focus input
   const handleFocusComment = async () => {
     if (firstLoading) {
-      await getComment( post._id);
+      await getComment(post._id);
     }
     document.getElementById("comment").classList.add("active");
     document.getElementById("overlay").classList.add("active");

@@ -58,7 +58,7 @@ body {
 }
 .footer {
   @include flex(unset, unset);
-  padding: 2rem 15rem 1rem 15rem;
+  padding: 1rem 2rem 1rem 10rem;
   height: 45vh;
   margin-top: 4rem;
   @include mobile {
