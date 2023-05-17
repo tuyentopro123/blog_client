@@ -39,7 +39,7 @@ import { Avatar } from "@mui/material";
 
 
 const Body = () => {
-  const [topPost, setTopPost] = useState();
+  const [homeList, setHomeList] = useState();
   const [listPost, setListPost] = useState();
   const [viewPost, setViewPost] = useState();
   const [popularPost, setPopularPost] = useState();
@@ -225,83 +225,86 @@ const Body = () => {
 
   useEffect(() => {
     let controller = new AbortController();
-    // HIGHLIGHT POST
-    const highLightPost = async () => {
+
+    // GET POST TO RENDER HOME
+    const listPostHome = async () => {
       try {
-        const res = await publicRequest.get("/v1/post/path/highlight");
-        setTopPost(res.data);
+        const res = await publicRequest.get("/v1/post/path/home");
+        setHomeList(res.data);
         controller = null;
       } catch (err) {
         console.log(err);
       }
     };
+    // // HIGHLIGHT POST
+    // const highLightPost = async () => {
+    //   try {
+    //     const res = await publicRequest.get("/v1/post/path/highlight");
+    //     setTopPost(res.data);
+    //     controller = null;
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // };
 
-    // NEW POST
-    const newPost = async () => {
-      try {
-        const res = await publicRequest.get("/v1/post/path/new");
-        setListPost(res.data);
-        controller = null;
-      } catch (err) {
-        console.log(err);
-      }
-    };
+    // // NEW POST
+    // const newPost = async () => {
+    //   try {
+    //     const res = await publicRequest.get("/v1/post/path/new");
+    //     setListPost(res.data);
+    //     controller = null;
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // };
 
-    // COMMENT POST
-    const commentPost = async () => {
-        try {
-          const res = await publicRequest.get("/v1/post/path/comment");
-          setPopularPost(res.data);
-          controller = null;
-        } catch (err) {
-          console.log(err);
-        }
-      };
+    // // COMMENT POST
+    // const commentPost = async () => {
+    //     try {
+    //       const res = await publicRequest.get("/v1/post/path/comment");
+    //       setPopularPost(res.data);
+    //       controller = null;
+    //     } catch (err) {
+    //       console.log(err);
+    //     }
+    //   };
 
-       // RANDOM POST
-    const randomPost = async () => {
-        try {
-          const res = await publicRequest.get("/v1/post/path/random");
-          setRandomPost(res.data);
-          controller = null;
-        } catch (err) {
-          console.log(err);
-        }
-      };
+    //    // RANDOM POST
+    // const randomPost = async () => {
+    //     try {
+    //       const res = await publicRequest.get("/v1/post/path/random");
+    //       setRandomPost(res.data);
+    //       controller = null;
+    //     } catch (err) {
+    //       console.log(err);
+    //     }
+    //   };
 
-    // VIEW POST
-    const viewPost = async () => {
-      try {
-        const res = await publicRequest.get("/v1/post/path/view");
-        setViewPost(res.data);
-        controller = null;
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    highLightPost();
-    newPost();
-    viewPost();
-    commentPost();
-    randomPost();
+    // // VIEW POST
+    // const viewPost = async () => {
+    //   try {
+    //     const res = await publicRequest.get("/v1/post/path/view");
+    //     setViewPost(res.data);
+    //     controller = null;
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // };
+    listPostHome()
     setLoading(false);
     return () => {
-      setTopPost();
-      setListPost();
-      setPopularPost();
-      setRandomPost();
-      setViewPost();
+      listPostHome()
       controller?.abort()
     };
   }, []);
   return (
     <section className="body">
       <div className="body__content">
-        {topPost ? 
+        {homeList?.highlight ? 
         <div className="body__trailer">
           <div className="body__desc">
             <Swiper {...swiperOptionsV1}>
-              {topPost.map((post, index) => (
+              {homeList?.highlight.map((post, index) => (
                 <SwiperSlide key={index}>
                   <PostItem post={post} />
                 </SwiperSlide>
@@ -315,10 +318,10 @@ const Body = () => {
         <div className="body__post">
           {/* <-----------First form------------>*/}
           <div className="body__post__firstForm">
-            {listPost ? 
+            {homeList?.new_post ? 
             <List header="Recent Stories">
               <Grid col={2} md={2} sm={1} gapCol={10} gapRow={10}>
-                {listPost.map((post, index) => (
+                {homeList?.new_post.map((post, index) => (
                   <Thumbnail key={index} post={post} />
                 ))}
               </Grid>
@@ -329,11 +332,11 @@ const Body = () => {
             </div>
             }
 
-            {viewPost ? 
+            {homeList?.post_view ? 
             <div className="body__post__firstForm__sidebar">
               <List header="read more" active="active">
                 <Grid col={1} md={2} sm={1} gapCol={20} gapRow={25}>
-                  {viewPost.map((post, index) => (
+                  {homeList?.post_view.map((post, index) => (
                     <MiniPost key={index} post={post} />
                   ))}
                 </Grid>
@@ -359,7 +362,7 @@ const Body = () => {
             }
           </div>
 
-          {viewPost ? 
+          {homeList?.post_view ? 
           <div className="body__banner">
             <div className="body__banner__overlay"></div>
             <div
@@ -379,10 +382,10 @@ const Body = () => {
           {/* <-----------Second form------------>*/}
 
           <div className="body__post__secondForm"> 
-            {popularPost ? 
+            {homeList?.comment_post ? 
             <List header="popular stories" style={{paddingBottom: 0}}>
               <Swiper {...swiperOptionsV2}>
-                {popularPost.map((post, index) => (
+                {homeList?.comment_post.map((post, index) => (
                   <SwiperSlide key={index}>
                     <div
                       key={index}
@@ -432,11 +435,11 @@ const Body = () => {
           {/* <-----------Third form------------>*/}
 
           <div className="body__post__thirdForm">
-            {randomPost ? 
+            {homeList?.random ? 
             <List header="You Don't miss" style={{paddingBottom: 0,minHeight: "75vh"}}>
               <div className="body__post__thirdForm__container">
                 <Swiper {...swiperOptionsV3}>
-                  {Object.keys(randomPost).length > 0 && randomPost.randomPosts1.map((post, index) => (
+                  {Object.keys(homeList?.random).length > 0 && homeList?.random.random_posts1.map((post, index) => (
                     <SwiperSlide key={index}>
                       <div
                         key={index}
@@ -471,7 +474,7 @@ const Body = () => {
                   ))}
                 </Swiper>
                 <Swiper {...swiperOptionsV3}>
-                  {Object.keys(randomPost).length > 0 && randomPost.randomPosts2.map((post, index) => (
+                  {Object.keys(homeList?.random).length > 0 && homeList?.random.random_posts2.map((post, index) => (
                     <SwiperSlide key={index}>
                       <div
                         key={index}
@@ -514,7 +517,7 @@ const Body = () => {
             </div>
             }
 
-            {randomPost ? 
+            {homeList?.random ? 
             <div className="body__post__firstForm__sidebar">
               <List header="Contact me" active="active">
                 <div className="follow">
