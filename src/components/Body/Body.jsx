@@ -12,13 +12,8 @@ import {publicRequest} from "../../utils/configAxios";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import { red,blue,purple,orange,indigo } from "@mui/material/colors";
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import YouTubeIcon from '@mui/icons-material/YouTube';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import { red} from "@mui/material/colors";
+
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
