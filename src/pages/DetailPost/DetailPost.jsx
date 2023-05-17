@@ -51,7 +51,6 @@ const notify = () => toast('Chức năng hiện đang bảo trì', {
 const DetailPost = () => {
   const location = useLocation()
   const {slug} = useParams()
-  console.log(location)
   const dispatch = useDispatch();
   
   const currentUser = useSelector((state) => state.auth.login?.currentUser);
@@ -59,6 +58,7 @@ const DetailPost = () => {
     (state) => state.auth.login?.showNotification
     );
     const redirectNoti = useSelector((state) => state.auth.login?.redirectNoti);
+    console.log(redirectNoti)
     const { firstLoading} = useSelector((state) => state.post.post);
     const  commentOfPost  = useSelector((state) => state.comment.commentpost.commentOfPost);
     const [post,setPost] = useState()
@@ -262,6 +262,7 @@ const DetailPost = () => {
     if(reply) {
       dispatch(getReplyCommentNoti(redirectNoti?.reaction))
     }
+    console.log(document.getElementById(reply ? reply : id))
     setTimeout(() => {
       document.getElementById(reply ? reply : id)?.classList.add("active");
     }, 500);
@@ -298,7 +299,6 @@ const DetailPost = () => {
   }, [commentOfPost]);
 
   useEffect(() => {
-  console.log(post)
     if (showComment && post) {
       handleFocusComment();
       if (redirectNoti?.action === "interComment") {
