@@ -58,11 +58,10 @@ const DetailPost = () => {
     (state) => state.auth.login?.showNotification
     );
     const redirectNoti = useSelector((state) => state.auth.login?.redirectNoti);
-    console.log(redirectNoti)
     const { firstLoading} = useSelector((state) => state.post.post);
     const  commentOfPost  = useSelector((state) => state.comment.commentpost.commentOfPost);
     const [post,setPost] = useState()
-
+    const [listStatus,setListStatus] = useState(true)
     const [relatedPost,setRelatedPost] = useState({})
 
     const [randomPost,setRandomPost] = useState()
@@ -221,6 +220,7 @@ const DetailPost = () => {
       //   user_receiver: post.user._id,
       //   seen: false,
       // });
+      setListStatus(!listStatus)
       setNewComment({ ...newComment, comment: "" });
     }
   };
@@ -539,6 +539,7 @@ const DetailPost = () => {
                               id={comment._id}
                               comment={comment}
                               receive={getComment}
+                              listStatus={listStatus}
                             />
                           </div>
                         ))

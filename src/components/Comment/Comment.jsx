@@ -25,7 +25,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 import { publicRequest } from "../../utils/configAxios";
 
-const Comment = ({ comment, id, receive }) => {
+const Comment = ({ comment, id, receive, listStatus }) => {
   const emoji = [
     {
       title: "Thích",
@@ -194,6 +194,10 @@ const Comment = ({ comment, id, receive }) => {
       getReplyComment(comment._id);
     }
   };
+
+  useEffect(() => {
+    setReplyComment([]);
+  }, [listStatus]);
 
   useEffect(() => {
     if (reply) {
