@@ -314,7 +314,7 @@ const DetailPost = () => {
         dispatch(redirectNotificationFinish());
       }
     }
-  }, [firstLoading]);
+  }, [firstLoading,post]);
   return (
     <Helmet title="Blog">
       <Toaster
