@@ -37,11 +37,9 @@
         }
         &__avatar {
             @include flex(center,center);
-            flex-direction: column;
             position: absolute;
-            width: 20%;
             margin-left: 3%;
-            top: -9rem;
+            top: -5rem;
             @include tablet {
                 width: 100%;
                 &__img {
@@ -69,6 +67,7 @@
                 -moz-border-radius: 50%;
                 width:18rem;
                 height:18rem;
+                margin-right: 2rem;
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center;

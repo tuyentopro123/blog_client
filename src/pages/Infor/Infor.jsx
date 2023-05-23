@@ -48,6 +48,10 @@ const Infor = ({save}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    // xét điều kiện
+    const isCurrentUser = currentUser._id === user?._id;
+    const isAdmin = currentUser?.isAdmin;
+
     // Upload image to the cloundinary
     const handleUpload = (e) => {
         setLoading(true)
@@ -106,25 +110,23 @@ const Infor = ({save}) => {
           getUsers(id)
       }, [id]);
 
-      useEffect(() => { 
-        const getSavePost = async(id) => {
-        dispatch(getUserStart())
-            try {
-                const res = await publicRequest.get(`/v1/post/saved/` + id);
-                dispatch(getUserSuccess())
-                setPost(res.data)
-            } catch (err) {
-                console.log(err)
-            }
-          };
-        if(save) {
-            getSavePost(user._id)
-        } else {
-            getUsers(id)
-        }
-
-      }, [save]);
-      console.log(user)
+    useEffect(() => { 
+      const getSavePost = async(id) => {
+      dispatch(getUserStart())
+          try {
+              const res = await publicRequest.get(`/v1/post/saved/` + id);
+              dispatch(getUserSuccess())
+              setPost(res.data)
+          } catch (err) {
+              console.log(err)
+          }
+        };
+      if(save) {
+          getSavePost(user._id)
+      } else {
+          getUsers(id)
+      }
+    }, [save]);
   return (
         <Helmet title={user?.username}>
             <section className="infor">
@@ -148,7 +150,7 @@ const Infor = ({save}) => {
                                 <div className={`loading overlay ${loading && "active"}`}>
                                     <CircularProgress/>    
                                 </div>
-                                { currentUser._id === user._id && 
+                                { isCurrentUser && 
                                     <label htmlFor="imgProfile">
                                         <div className="infor__hard__avatar__overlay overlay"></div>
                                         <CameraAltIcon 
@@ -160,7 +162,7 @@ const Infor = ({save}) => {
                                     </label>
                                 }
                                 {
-                                currentUser._id === user._id && <input 
+                                isCurrentUser && <input 
                                                                     type="file" 
                                                                     name='imgProfile' 
                                                                     id = "imgProfile"  
@@ -183,14 +185,18 @@ const Infor = ({save}) => {
                             </div>
                             }
                         </div>
-                        <div className="infor__hard__option">
-                            <div className="infor__hard__edit">
-                                <Button text="Sửa" Icon={AppRegistrationIcon}/>
+                        {(isCurrentUser || isAdmin) &&
+                            <div className="infor__hard__option">
+                                <div className="infor__hard__edit">
+                                    <Button text="Sửa" Icon={AppRegistrationIcon}/>
+                                </div>
+                                {isAdmin && 
+                                    <div className="infor__hard__delete">
+                                        <Button text="Xóa" Icon={DeleteOutlineIcon}/>
+                                    </div>
+                                }
                             </div>
-                            <div className="infor__hard__delete">
-                                <Button text="Xóa" Icon={DeleteOutlineIcon}/>
-                            </div>
-                        </div>
+                        }
                     </div>
                     <div className="infor__detail">
                             <div className="infor__detail__private">
