@@ -2,7 +2,7 @@ import { Avatar } from '@mui/material';
 import React from 'react'
 import "./PostItem.scss";
 import {useNavigate} from "react-router-dom"
-import getTimeString from '../../utils/GetTimeString';
+import getTimeString from '../../helpers/GetTimeString';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';

@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from 'react'
 import './About.scss'
 import {useNavigate,Link} from 'react-router-dom'
-import {publicRequest} from '../../utils/configAxios'
+import {publicRequest} from '../../helpers/configAxios'
 import LazyLoad from "react-lazyload";
-import GetTime from "../../utils/GetTime";
+import GetTime from "../../helpers/GetTime";
 import Helmet from "../../components/Helmet/Helmet";
 import Grid from "../../components/utils/Grid/Grid";
 

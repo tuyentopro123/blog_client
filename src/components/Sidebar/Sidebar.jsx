@@ -4,7 +4,7 @@ import Avatar from '@mui/material/Avatar';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
 import {teal,amber,grey,blueGrey} from '@mui/material/colors';
-import {publicRequest} from "../../utils/configAxios";
+import {publicRequest} from "../../helpers/configAxios";
 
 
 import Chip from '../utils/Chip/Chip';

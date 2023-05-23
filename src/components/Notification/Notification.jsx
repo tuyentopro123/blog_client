@@ -2,11 +2,11 @@ import React,{useState} from 'react'
 import "./Notification.scss"
 import Avatar from "@mui/material/Avatar";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import GetTime from "../../utils/GetTime"
+import GetTime from "../../helpers/GetTime"
 import {useNavigate } from 'react-router-dom';
 import { useDispatch,useSelector} from "react-redux";
 import { grey } from "@mui/material/colors";
-import {publicRequest} from "../../utils/configAxios";
+import {publicRequest} from "../../helpers/configAxios";
 
 import {emojiNoti} from "../../raw/raw"
 // import { getUserPost } from "../../redux/apiRequest"

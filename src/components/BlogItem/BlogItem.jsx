@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./BlogItem.scss";
-import GetTime from "../../utils/GetTime";
+import GetTime from "../../helpers/GetTime";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import male from "../../assets/img/male.png";

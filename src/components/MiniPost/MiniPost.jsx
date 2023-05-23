@@ -3,7 +3,7 @@ import './MiniPost.scss'
 import bgEmty from '../../assets/img/thumbnail_emty.jpg'
 import { useDispatch,useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import getTimeString from '../../utils/GetTimeString';
+import getTimeString from '../../helpers/GetTimeString';
 
 // material ui
 import AccessTimeIcon from '@mui/icons-material/AccessTime';

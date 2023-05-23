@@ -5,7 +5,7 @@ import { useDispatch,useSelector } from "react-redux";
 import { updateUsers } from "../../redux/apiRequest";
 import {getUserStart,getUserSuccess} from "../../redux/userSlice"
 
-import {publicRequest} from '../../utils/configAxios'
+import {publicRequest} from '../../helpers/configAxios'
 
 import male from '../../assets/img/male.png'
 import female from '../../assets/img/female.png'
@@ -28,11 +28,15 @@ import ClassIcon from '@mui/icons-material/Class';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import BoyIcon from '@mui/icons-material/Boy';
 import GirlIcon from '@mui/icons-material/Girl';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';    
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 // Skeleton
 import Skeleton from '@mui/material/Skeleton';
 
 import toast, { Toaster } from 'react-hot-toast';
+import GetTime from '../../helpers/GetTime';
+import Button from '../../components/utils/Button/Button';
 const notify = () => toast.success('Cập nhật ảnh đại diện thành công');
 
 const Infor = ({save}) => {
@@ -120,7 +124,7 @@ const Infor = ({save}) => {
         }
 
       }, [save]);
-
+      console.log(user)
   return (
         <Helmet title={user?.username}>
             <section className="infor">
@@ -173,8 +177,19 @@ const Infor = ({save}) => {
                             </div>
                             }
                             {user && 
-                            <h1>{user.username}</h1>
+                            <div>
+                                <h1>{user.username}</h1>
+                                <h3>Tham gia từ <span style={{color: "#e2ae69"}}>{GetTime(user.createdAt)}</span></h3>
+                            </div>
                             }
+                        </div>
+                        <div className="infor__hard__option">
+                            <div className="infor__hard__edit">
+                                <Button text="Sửa" Icon={AppRegistrationIcon}/>
+                            </div>
+                            <div className="infor__hard__delete">
+                                <Button text="Xóa" Icon={DeleteOutlineIcon}/>
+                            </div>
                         </div>
                     </div>
                     <div className="infor__detail">

@@ -8,7 +8,7 @@
         top: 0;
     }
     &__container {
-        max-width:1200px;
+        max-width:1100px;
         margin:auto;
     }
 
@@ -18,8 +18,8 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            border-bottom: 2px solid #000;
-            border-radius: .5rem;
+            border-top-right-radius: .5rem;
+            border-top-left-radius: .5rem;
             @include tablet {
                 height: 30vh;
             }
@@ -27,20 +27,21 @@
     }
     
     &__hard {
-        margin-top: 1rem;
         background-color: $bg-color;
-        border-radius: .6rem;
+        border-bottom-right-radius: .6rem;
+        border-bottom-left-radius: .6rem;
         height:20rem;
+        position: relative;
         @include tablet {
             background-color:unset;
         }
         &__avatar {
             @include flex(center,center);
             flex-direction: column;
-            position: relative;
+            position: absolute;
             width: 20%;
-            margin: auto;
-            top: -10rem;
+            margin-left: 3%;
+            top: -9rem;
             @include tablet {
                 width: 100%;
                 &__img {
@@ -48,9 +49,10 @@
                 }
             }
             h1 {
-                margin:2rem auto;
+                margin: 2rem auto;
                 text-align: center;
-                font-size: 2.2rem;
+                font-size: 2.7rem;
+                line-height: 3.5rem;
             }
             &__icon {
                 display: none!important;
@@ -65,13 +67,13 @@
                 border-radius: 50%;
                 -webkit-border-radius: 50%;
                 -moz-border-radius: 50%;
-                width:20rem;
-                height:20rem;
+                width:18rem;
+                height:18rem;
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center;
                 overflow: hidden;
-                outline: .3rem solid  rgb(37, 37, 37);
+                outline: .6rem solid  $bg-color;
                 &:hover {
                     .infor__hard__avatar__overlay,.infor__hard__avatar__icon {
                         cursor: pointer;
@@ -79,6 +81,13 @@
                     }
                 }
             }
+        }
+
+        &__option {
+            padding-top:2.5rem;
+            padding-right: 1.5rem;
+            @include flex(center,flex-end);
+
         }
 
     }
@@ -128,7 +137,7 @@
                 background-color: $bg-color;
                 border-radius: .6rem;
                 & > * {
-                    margin: 1rem;
+                    margin: 1rem 1rem 2rem 4rem;
                 }
             }
 

@@ -16,8 +16,8 @@ import Stack from '@mui/material/Stack';
 import CloseIcon from '@mui/icons-material/Close';
 
 import Helmet from "../../components/Helmet/Helmet";
-import GetTime from "../../utils/GetTime";
-import {publicRequest} from '../../utils/configAxios'
+import GetTime from "../../helpers/GetTime";
+import {publicRequest} from '../../helpers/configAxios'
 
 
 import { useSelector, useDispatch } from "react-redux";

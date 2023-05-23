@@ -7,7 +7,7 @@ import Grid from '../../components/utils/Grid/Grid'
 import PaginationType  from '../../components/Pagination/Pagination';
 
 import { useSelector } from "react-redux";
-import {publicRequest} from '../../utils/configAxios'
+import {publicRequest} from '../../helpers/configAxios'
 
 
 

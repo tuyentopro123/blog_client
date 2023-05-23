@@ -1,4 +1,4 @@
-import {publicRequest} from "../utils/configAxios";
+import {publicRequest} from "../helpers/configAxios";
 import axios from "axios"
 import {loginStart,
         loginSuccess,

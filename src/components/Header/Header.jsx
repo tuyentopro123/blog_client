@@ -8,7 +8,7 @@ import male from "../../assets/img/male.png";
 import female from "../../assets/img/female.png";
 import CreateSlug from "../utils/CreateSlug/CreateSlug";
 import { getNotification } from "../../redux/apiRequest";
-import {publicRequest} from "../../utils/configAxios";
+import {publicRequest} from "../../helpers/configAxios";
 
 
 

@@ -5,7 +5,7 @@ import { useDispatch,useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import male from '../../assets/img/male.png'
 import female from '../../assets/img/female.png'
-import GetTime from '../../utils/GetTime'
+import GetTime from '../../helpers/GetTime'
 
 const Thumbnail = ({post,infor}) => {
   const navigate = useNavigate()

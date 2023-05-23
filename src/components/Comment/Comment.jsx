@@ -7,7 +7,7 @@ import {
   deleteComment,
 } from "../../redux/apiRequest";
 import DialogComponent from "../utils/Dialog/Dialog";
-import GetTime from "../../utils/GetTime";
+import GetTime from "../../helpers/GetTime";
 import { setReplyCommentNoti } from "../../redux/commentSlice";
 // Material UI
 import Stack from "@mui/material/Stack";
@@ -23,7 +23,7 @@ import "tippy.js/animations/shift-away-extreme.css";
 
 import toast, { Toaster } from "react-hot-toast";
 
-import { publicRequest } from "../../utils/configAxios";
+import { publicRequest } from "../../helpers/configAxios";
 import { emoji } from "../../raw/raw"
 
 const Comment = ({ comment, id, receive, listStatus }) => {

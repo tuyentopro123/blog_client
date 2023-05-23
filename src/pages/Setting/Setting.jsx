@@ -2,7 +2,7 @@ import React,{useState,useEffect } from 'react'
 import "./Setting.scss"
 import {useLocation, useParams,useNavigate} from 'react-router-dom'
 import { useDispatch,useSelector } from "react-redux";
-import {publicRequest} from '../../utils/configAxios'
+import {publicRequest} from '../../helpers/configAxios'
 
 import { updateUsers } from "../../redux/apiRequest";
 import Helmet from '../../components/Helmet/Helmet'

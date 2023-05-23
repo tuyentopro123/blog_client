@@ -8,7 +8,7 @@ import {useNavigate} from "react-router-dom"
 
 // Import material ui
 import Skeleton from "@mui/material/Skeleton";
-import {publicRequest} from "../../utils/configAxios";
+import {publicRequest} from "../../helpers/configAxios";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
@@ -23,7 +23,7 @@ import "swiper/css/navigation";
 import "swiper/css/autoplay";
 import "swiper/css/effect-flip";
 
-import getTimeString from "../../utils/GetTimeString";
+import getTimeString from "../../helpers/GetTimeString";
 
 // import required modules
 import { Navigation, Autoplay, EffectFlip } from "swiper";

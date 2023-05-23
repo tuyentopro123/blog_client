@@ -1,7 +1,7 @@
 import React,{useEffect,useRef} from 'react'
 import "./RelatedPost.scss"
 import Chip from '../utils/Chip/Chip';
-import GetTime from '../../utils/GetTime';
+import GetTime from '../../helpers/GetTime';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {amber} from '@mui/material/colors';
 import {Link} from 'react-router-dom'
