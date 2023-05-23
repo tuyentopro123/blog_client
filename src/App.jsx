@@ -27,6 +27,7 @@ import AddIcon from '@mui/icons-material/Add';
 import InfoIcon from '@mui/icons-material/Info';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import {amber} from '@mui/material/colors';
+import {brands} from './raw/raw'
 
 function App() {
   // const location = useLocation()  
@@ -36,18 +37,6 @@ function App() {
   const dispatch = useDispatch()
   // const [socket,setSocket] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
-  const categories = ["Frontend",
-                      "Backend",
-                      "Scss",
-                      "NextJS",
-                      "Redux",
-                      "ReactJs",
-                      "game",
-                      "social",
-                      "drama",
-                      "music",
-                      "film",
-]
   
   // SOCKET IO
   useEffect(() => {
@@ -114,14 +103,14 @@ function App() {
                   className="grid col-3 col-sm-4" 
                   style={{gridColumnGap: `15px`}}  
                 >
-                  {categories.slice(0,6).map((item,index) => (
+                  {brands.slice(0,6).map((item,index) => (
                     <li key={index}>
                       <a href={`/program?category=${item}`}>
                         {item}
                       </a>
                     </li>
                   ))}
-                  {categories.slice(6,11).map((item,index) => (
+                  {brands.slice(6,11).map((item,index) => (
                     <li key={index}>
                       <a href={`/life?category=${item}`}>
                         {item}

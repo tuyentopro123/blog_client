@@ -6,116 +6,16 @@ import LazyLoad from "react-lazyload";
 import GetTime from "../../utils/GetTime";
 import Helmet from "../../components/Helmet/Helmet";
 import Grid from "../../components/utils/Grid/Grid";
-import Hiking from "../../assets/img/Hiking.png";
-import lol from "../../assets/img/lol.png";
-import chatApp from "../../assets/img/chatApp.png";
 
 // mui material
 import Avatar from "@mui/material/Avatar";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { red,blue,purple,orange,indigo,yellow } from "@mui/material/colors";
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import YouTubeIcon from '@mui/icons-material/YouTube';
-import TwitterIcon from '@mui/icons-material/Twitter';
-
+import { yellow } from "@mui/material/colors";
+import { social,categories,project } from '../../raw/raw'
 
 const About = () => {
     const navigate = useNavigate()
-    const social = [
-        {
-          title: "Facebook",
-          href: "https://www.facebook.com/tea.live.167/",
-          icon: FacebookIcon,
-          color:indigo,
-        },
-        {
-          title: "instagram",
-          href: "https://www.instagram.com/tealive4/",
-          icon: InstagramIcon,
-          color:orange,
-        },
-        {
-          title: "linkedin",
-          href: "https://www.linkedin.com/in/tuy%C3%AAn-nguy%E1%BB%85n-v%C4%83n-47771b234/",
-          icon: LinkedInIcon,
-          color:purple,
-        },
-        {
-          title: "github",
-          href: "https://github.com/tuyentopro123",
-          icon: GitHubIcon,
-          color:null,
-        },
-        {
-          title: "youtube",
-          href: "https://www.facebook.com/tea.live.167/",
-          icon: YouTubeIcon,
-          color:red,
-        },
-        {
-          title: "twitter",
-          href: "https://www.facebook.com/tea.live.167/",
-          icon: TwitterIcon,
-          color:blue
-        },
-      ]
 
-    const categories = [
-        {
-            name: "Frontend",
-            field: "program"
-        },
-        {
-            name: "Backend",
-            field: "program"
-        },
-        {
-            name: "NodeJS",
-            field: "program"
-        },
-        {
-            name: "Game",
-            field: "life"
-        },
-        {
-            name: "Social",
-            field: "life"
-        },
-        {
-            name: "Sports",
-            field: "life"
-        },
-    ]
-
-    const project = [
-        {
-            name:"Hiking concept web template",
-            tech: "ReactJs, TailwindCSS",
-            desc:"Đây là template mình clone từ file Figma và sử dụng TailwindCSS",
-            img: Hiking,
-            github: "https://github.com/tuyentopro123/Hiking-concept-web-template",
-            web: "https://hiking-concept-web-template.vercel.app/"
-        },
-        {
-            name:"Lengue of lengends template",
-            tech: "ReactJs, SCSS",
-            desc:"Đây là template mình làm ra dựa theo trang chủ của Liên Minh Huyền thoại",
-            img: lol,
-            github: "https://github.com/tuyentopro123/lengue-of-lengends-template",
-            web: "https://lengueoflengend.netlify.app/"
-        },
-        {
-            name:"Chat App",
-            tech: "ReactJS, SCSS, Firebase",
-            desc:"Đây là sản phẩm mình làm hướng dẫn của Youtube channel Hole text và chủ yếu để thử chức năng cũng như để tìm hiểu về firebase nên template khá sơ sài.",
-            img: chatApp,
-            github: "https://github.com/tuyentopro123/Chat_app",
-            web: "https://tealiveapp.firebaseapp.com/login"
-        },
-    ]
 
     const [random,setRandom] = useState()
      // RANDOM POST
@@ -228,9 +128,9 @@ const About = () => {
                             </div>
                             <ul>
                                 {categories.map((item,index) => (
-                                    <li key={index} id={item.name}>
-                                        <Link to={`/${item.field}?category=${item.name}`}>
-                                            {item.name}
+                                    <li key={index} id={item.text}>
+                                        <Link to={`/${item.field}?category=${item.text}`}>
+                                            {item.text}
                                         </Link>
                                     </li>
                                 ))}
