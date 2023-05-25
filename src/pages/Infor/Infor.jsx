@@ -2,7 +2,7 @@ import React,{useState,useEffect } from 'react'
 import './Infor.scss'
 import { useParams,useNavigate} from 'react-router-dom'
 import { useDispatch,useSelector } from "react-redux";
-import { updateUsers } from "../../redux/apiRequest";
+import { deleteUser, updateUsers } from "../../redux/apiRequest";
 import {getUserStart,getUserSuccess} from "../../redux/userSlice"
 
 import {publicRequest} from '../../helpers/configAxios'
@@ -37,6 +37,7 @@ import Skeleton from '@mui/material/Skeleton';
 import toast, { Toaster } from 'react-hot-toast';
 import GetTime from '../../helpers/GetTime';
 import Button from '../../components/utils/Button/Button';
+import DialogComponent from '../../components/utils/Dialog/Dialog';
 const notify = () => toast.success('Cập nhật ảnh đại diện thành công');
 
 const Infor = ({save}) => {
@@ -45,6 +46,7 @@ const Infor = ({save}) => {
     const [loading,setLoading] = useState(false) 
     const [user, setUser] = useState();
     const [post, setPost] = useState([]);
+    const [visible, setVisible] = useState(false);
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -88,6 +90,50 @@ const Infor = ({save}) => {
         return text ? text : "chưa cập nhật"
     }
 
+    // Chỉ dành cho Admin
+    const DeleteUser = () => {
+        setVisible(true);
+    }
+
+    const handleCancelDelete = () => {
+        receiveData({
+            delete: false,
+        })
+      }
+    
+      const handleAccessDelete = () => {
+        receiveData({
+              delete: true,
+              user: user._id,
+        })
+      }
+      const receiveData = (data) => {
+        if (data.delete) {
+          toast.promise(
+            deleteUser(
+                dispatch,
+                data.user,
+                navigate
+            ),
+            {
+              loading: "Đang tải...",
+              success: "Xóa người dùng thành công",
+              error: "lỗi đường truyền",
+            }
+          );
+        } 
+        setVisible(false);
+      };
+    
+
+    // Chỉ dành cho người dung hiện tại hoặc Admin
+    const EditUser = () => {
+        if(isCurrentUser) {
+            navigate(`/setting`)
+        } else {
+            navigate(`/setting`, {state: user?._id})
+        }
+    }
 
     // GET USER
     const getUsers = async(id) => {
@@ -143,60 +189,71 @@ const Infor = ({save}) => {
                     <div className="infor__hard">
                         <div className="infor__hard__avatar" htmlFor="imgProfile">
                             {user ? 
-                            <div 
-                                className="infor__hard__avatar__img" 
-                                style={{backgroundImage: `url(${user.image ? user.image : user.sex === 'male' ? male : female})`}}
-                                >
-                                <div className={`loading overlay ${loading && "active"}`}>
-                                    <CircularProgress/>    
+                                <div 
+                                    className="infor__hard__avatar__img" 
+                                    style={{backgroundImage: `url(${user.image ? user.image : user.sex === 'male' ? male : female})`}}
+                                    >
+                                    <div className={`loading overlay ${loading && "active"}`}>
+                                        <CircularProgress/>    
+                                    </div>
+                                    { isCurrentUser && 
+                                        <label htmlFor="imgProfile">
+                                            <div className="infor__hard__avatar__overlay overlay"></div>
+                                            <CameraAltIcon 
+                                                className="infor__hard__avatar__icon" 
+                                                sx={{ fontSize: 40,color: amber[600] }} 
+                                                style={{position: 'absolute'}}
+                                                htmlFor="imgProfile"
+                                            />
+                                        </label>
+                                    }
+                                    {
+                                    isCurrentUser && <input 
+                                                                        type="file" 
+                                                                        name='imgProfile' 
+                                                                        id = "imgProfile"  
+                                                                        required={true}
+                                                                        style={{display: 'none'}}
+                                                                        accept="image/*"
+                                                                        onChange = {(e) => handleUpload(e)}
+                                                                    />
+                                    }
                                 </div>
-                                { isCurrentUser && 
-                                    <label htmlFor="imgProfile">
-                                        <div className="infor__hard__avatar__overlay overlay"></div>
-                                        <CameraAltIcon 
-                                            className="infor__hard__avatar__icon" 
-                                            sx={{ fontSize: 40,color: amber[600] }} 
-                                            style={{position: 'absolute'}}
-                                            htmlFor="imgProfile"
-                                        />
-                                    </label>
-                                }
-                                {
-                                isCurrentUser && <input 
-                                                                    type="file" 
-                                                                    name='imgProfile' 
-                                                                    id = "imgProfile"  
-                                                                    required={true}
-                                                                    style={{display: 'none'}}
-                                                                    accept="image/*"
-                                                                    onChange = {(e) => handleUpload(e)}
-                                                                />
-                                }
-                            </div>
-                            :
-                            <div className="skeleton">
-                                <Skeleton sx={{ bgcolor: 'grey.800' }} variant="circular" width={200} height={200} />
-                            </div>
+                                :
+                                <div className="skeleton">
+                                    <Skeleton sx={{ bgcolor: 'grey.800' }} variant="circular" width={200} height={200} />
+                                </div>
                             }
                             {user && 
-                            <div>
-                                <h1>{user.username}</h1>
-                                <h3>Tham gia từ <span style={{color: "#e2ae69"}}>{GetTime(user.createdAt)}</span></h3>
-                            </div>
+                                <div>
+                                    <h1>{user.username}</h1>
+                                    <h3>Tham gia từ <span style={{color: "#e2ae69"}}>{GetTime(user.createdAt)}</span></h3>
+                                </div>
                             }
                         </div>
-                        {(isCurrentUser || isAdmin) &&
+                        { (isCurrentUser || isAdmin) &&
                             <div className="infor__hard__option">
-                                <div className="infor__hard__edit">
-                                    <Button text="Sửa" Icon={AppRegistrationIcon}/>
-                                </div>
-                                {isAdmin && 
-                                    <div className="infor__hard__delete">
-                                        <Button text="Xóa" Icon={DeleteOutlineIcon}/>
-                                    </div>
+                                {user &&
+                                    <>
+                                        <div className="infor__hard__edit" onClick={EditUser}>
+                                            <Button text={!isCurrentUser ? "Chỉnh sửa thông tin" : "Chỉnh sửa thông tin cá nhân"} Icon={AppRegistrationIcon}/>
+                                        </div>
+                                        {isAdmin && !isCurrentUser &&
+                                            <div className="infor__hard__delete" onClick={DeleteUser}>
+                                                <Button text="Xóa" Icon={DeleteOutlineIcon}/>
+                                            </div>
+                                        }
+                                    </>
                                 }
                             </div>
                         }
+                        <DialogComponent
+                          handleAccessDelete={handleAccessDelete}
+                          handleCancelDelete={handleCancelDelete}
+                          title="Xóa thành viên"
+                          content={"Bạn có chắc muốn xóa thành viên này ?"}
+                          visible={visible}
+                        />
                     </div>
                     <div className="infor__detail">
                             <div className="infor__detail__private">

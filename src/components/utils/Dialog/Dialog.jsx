@@ -5,42 +5,27 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { amber } from '@mui/material/colors';
+import { grey } from '@mui/material/colors';
 
-const DialogComponent = (props) => {
-    const handleCancel = () => {
-        props.onReceiveData({
-            visible: false,
-            delete: false,
-        })
-    }
-
-    const handleAccess = () => {
-        props.onReceiveData({
-            visible: false,
-            delete: true,
-            user: props.user,
-            comment:props.comment
-        })
-    }
+const DialogComponent = ({title,content,handleCancelDelete,handleAccessDelete,visible}) => {
   return (
     <div>
       <Dialog
-        open={props.visible}
+        open={visible}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title" sx={{ fontSize:30,color:amber[500]}}>
-          {"Xóa bình luận?"}
+        <DialogTitle id="alert-dialog-title" sx={{ fontSize:30,color:grey[800]}}>
+          {title}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description" sx={{ fontSize:20,color:amber[500]}}>
-            Bạn có chắc muốn xóa bình luận ?
+          <DialogContentText id="alert-dialog-description" sx={{ fontSize:20,color:grey[800]}}>
+            {content}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button sx={{ fontSize:20,color:amber[500]}} onClick={handleCancel}>HỦY</Button>
-          <Button sx={{ fontSize:20,color:amber[500]}} onClick={handleAccess} autoFocus>
+          <Button sx={{ fontSize:20,color:grey[800]}} onClick={handleCancelDelete}>HỦY</Button>
+          <Button sx={{ fontSize:20,color:grey[800]}} onClick={handleAccessDelete} autoFocus>
             XÓA
           </Button>
         </DialogActions>

@@ -143,60 +143,6 @@ const Body = () => {
         console.log(err);
       }
     };
-    // // HIGHLIGHT POST
-    // const highLightPost = async () => {
-    //   try {
-    //     const res = await publicRequest.get("/v1/post/path/highlight");
-    //     setTopPost(res.data);
-    //     controller = null;
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
-
-    // // NEW POST
-    // const newPost = async () => {
-    //   try {
-    //     const res = await publicRequest.get("/v1/post/path/new");
-    //     setListPost(res.data);
-    //     controller = null;
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
-
-    // // COMMENT POST
-    // const commentPost = async () => {
-    //     try {
-    //       const res = await publicRequest.get("/v1/post/path/comment");
-    //       setPopularPost(res.data);
-    //       controller = null;
-    //     } catch (err) {
-    //       console.log(err);
-    //     }
-    //   };
-
-    //    // RANDOM POST
-    // const randomPost = async () => {
-    //     try {
-    //       const res = await publicRequest.get("/v1/post/path/random");
-    //       setRandomPost(res.data);
-    //       controller = null;
-    //     } catch (err) {
-    //       console.log(err);
-    //     }
-    //   };
-
-    // // VIEW POST
-    // const viewPost = async () => {
-    //   try {
-    //     const res = await publicRequest.get("/v1/post/path/view");
-    //     setViewPost(res.data);
-    //     controller = null;
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
     listPostHome()
     setLoading(false);
     return () => {

@@ -130,17 +130,19 @@ import {createCommentStart,
 
 
     // DELETE USER  
-    //   export const deleteUser = async ( dispatch, id,  => {
-    //     dispatch(deleteUserStart());
-    //     try {
-    //       const res = await publicRequest.delete("/v1/user/" + id, {
-    //         headers: { token: `Bearer ${accessToken` },
-    //       });
-    //       dispatch(deleteUsersSuccess(res.data));
-    //     } catch (err) {
-    //       dispatch(deleteUserFailed(err.response.data));
-    //     }
-    //   };
+      export const deleteUser = async( dispatch, id,navigate)  => {
+        dispatch(deleteUserStart());
+        try {
+          const res = await publicRequest.delete("/v1/user/" + id);
+          dispatch(deleteUserSuccess(res.data));
+          const navigation = () => {
+            navigate(`/admin`)
+          }
+          setTimeout(navigation,1600)
+        } catch (err) {
+          dispatch(deleteUserFailed(err));
+        }
+      };
         
 
 // <-- ( POST ) ----------------------------->

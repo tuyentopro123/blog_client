@@ -9,6 +9,7 @@ import Helmet from '../../components/Helmet/Helmet'
 import toast, { Toaster } from 'react-hot-toast';
 
 const Setting = () => {
+  const location = useLocation()
   const dispatch = useDispatch()
   const currentUser = useSelector((state)=> state.auth.login?.currentUser)
   const [user,setUser] = useState()
@@ -59,7 +60,7 @@ const Setting = () => {
       success: "Cập nhật thông tin thành công",
       error: 'lỗi đường truyền',
     });
-    await getUsers(currentUser._id)
+    await getUsers(user._id)
     setValue("")
   }
 
@@ -95,7 +96,7 @@ const Setting = () => {
 
     const uploadImage = async(base64encodedImage) => {
         try {
-            const res = await publicRequest.post(`/v1/user/upload/user/${currentUser._id}`, {data: base64encodedImage},{
+            const res = await publicRequest.post(`/v1/user/upload/user/${user._id}`, {data: base64encodedImage},{
               })
             setUser({...user,image: `${res.data.url}`})
             await updateUsers({image: `${res.data.url}`},dispatch,user._id);
@@ -120,7 +121,11 @@ const Setting = () => {
         left: 0,
         behavior: 'smooth'
       })
+      if(location.state) {
+        getUsers(location.state)
+      } else {
         getUsers(currentUser._id)
+      }
     }, []);
   return (
     <Helmet title="Setting">
@@ -190,7 +195,7 @@ const Setting = () => {
                   </div>
                 </div>
                 {/* SEX */}
-                <div className="setting__infor__item">
+                {/* <div className="setting__infor__item">
                   <div className="setting__infor__item__input">
                       <h3>Giới tính</h3>
                       <select name="sex" id="sex" defaultValue={user?.sex}>
@@ -198,7 +203,7 @@ const Setting = () => {
                         <option value='female'>female</option>
                       </select>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
         </section>

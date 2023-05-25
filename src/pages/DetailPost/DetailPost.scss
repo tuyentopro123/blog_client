@@ -97,6 +97,14 @@
             word-break: break-all;
         }
 
+        p a {
+            width: 100%;
+        }
+        // p img,
+        em img {
+            width: 100%!important;
+        }
+        
         code {
             background-color: $hover-txt-color!important;
         }
@@ -104,8 +112,9 @@
         h2 {
             font-size: 2.5rem;
         }
-
+        
         img {
+            margin: 4rem 0;
             border-radius: 1rem;
             // box-shadow: $box-shadow;
         }
@@ -467,3 +476,4 @@
     from { opacity:0} 
     to { opacity:1}
 }
+

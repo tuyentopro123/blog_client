@@ -14,7 +14,7 @@ const Button = ({text,handleClick,Icon}) => {
       onClick={handleClick} 
       className={`button`} 
       >
-        <Icon sx={{ fontSize: 22,color:grey[200] }}/>
+        <Icon sx={{ fontSize: 25,color:grey[200] }}/>
         {text}
     </button>
   )

@@ -175,8 +175,23 @@ const Comment = ({ comment, id, receive, listStatus }) => {
   const handleDeleteComment = () => {
     setVisible(true);
   };
+  const handleCancelDelete = () => {
+    receiveData({
+        delete: false,
+    })
+  }
+
+  const handleAccessDelete = () => {
+    receiveData({
+          delete: true,
+          user: comment.user._id,
+          comment:comment._id
+    })
+  }
   const receiveData = (data) => {
     if (data.delete) {
+      console.log(data.user,
+        { comment: data.comment, post: comment.post },dispatch)
       toast.promise(
         deleteComment(
           data.user,
@@ -191,10 +206,9 @@ const Comment = ({ comment, id, receive, listStatus }) => {
       );
 
       setReplyComment(replyComment.filter((e) => e._id !== data.comment));
-      setVisible(data.visible);
-    } else {
-      setVisible(data.visible);
-    }
+    } 
+    setVisible(false);
+    
   };
 
   return (
@@ -247,11 +261,12 @@ const Comment = ({ comment, id, receive, listStatus }) => {
                 <div className="comment__commentContent__body__setting">
                   <h2 onClick={handleDeleteComment}>Xóa bình luận</h2>
                   <DialogComponent
-                    onReceiveData={receiveData}
-                    visible={visible}
-                    user={comment.user}
-                    comment={comment._id}
-                  />
+                        handleAccessDelete={handleAccessDelete}
+                        handleCancelDelete={handleCancelDelete}
+                        title="Xóa bình luận"
+                        content={"Bạn có chắc muốn xóa bình luận ?"}
+                        visible={visible}
+                    />
                 </div>
                 <div
                   className="comment__commentContent__body__icon"
@@ -424,12 +439,13 @@ const Comment = ({ comment, id, receive, listStatus }) => {
                   <div className="comment__commentContent__body__more">
                     <div className="comment__commentContent__body__setting">
                       <h2 onClick={handleDeleteComment}>Xóa bình luận</h2>
-                      <DialogComponent
-                        onReceiveData={receiveData}
-                        visible={visible}
-                        user={answer.user}
-                        comment={answer._id}
-                      />
+                        <DialogComponent
+                          handleAccessDelete={handleAccessDelete}
+                          handleCancelDelete={handleCancelDelete}
+                          title="Xóa bình luận"
+                          content={"Bạn có chắc muốn xóa bình luận ?"}
+                          visible={visible}
+                        />
                     </div>
                     <div
                       className="comment__commentContent__body__icon"
