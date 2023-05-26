@@ -9,7 +9,7 @@
         flex-direction: column;
     }
     &__container {
-        margin: 0 3rem;
+        margin: 1rem 3rem;
         width: 100%;
         @include tablet {
             width: initial;
@@ -21,7 +21,7 @@
         width: 100%;
         padding:3rem 2rem;
         background: rgba(243, 248, 251, 0.6);
-        border-radius: 1rem;
+        border-radius: .5rem;
         span {
             font-size: 4rem;
             font-weight: bold;
@@ -36,11 +36,37 @@
     &__content {
         min-height:50vh;
         &__list {
-            span {
+            & > span {
                 font-size: 3rem;
                 width: 100%;
                 margin:4rem 0;
             }
         }
     }
+
+    &__empty {
+        margin-top: 20px;
+        font-size: 2.5rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+        background-color: $bg-color;
+        justify-content: center;
+        align-items: center;
+        border-radius: .5rem;
+        img {
+            width: 27%;
+            margin-top: 6rem;
+            border-radius: 50%;
+        }
+        span {
+            margin-top: 2rem;
+            margin-bottom: 3rem;
+        }
+    }
+}
+
+.MuiSkeleton-root {
+    margin-top: 0!important;
+    margin-bottom: 0!important;
 }

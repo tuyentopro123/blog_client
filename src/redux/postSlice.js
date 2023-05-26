@@ -4,7 +4,6 @@ const postSlice = createSlice({
     name:"post",
     initialState: {
         post: {
-            AllPost: null,
             currentPost: null,
             firstLoading:true,
             isFetching: false,
@@ -45,9 +44,8 @@ const postSlice = createSlice({
         getAllPostStart: (state) => {
             state.post.isFetching = true;
         },
-        getAllPostSuccess: (state,action) => {
+        getAllPostSuccess: (state) => {
             state.post.isFetching = false;
-            state.post.AllPost = action.payload;
             state.post.error = false;
         },
         getAllPostFailed: (state) => {

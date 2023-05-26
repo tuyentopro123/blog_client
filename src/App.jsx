@@ -50,6 +50,7 @@ function App() {
   // },[socket,user]) 
   
   useEffect(() => {
+    console.log(loading)
     setIsLoading(loading)
   },[loading]) 
 

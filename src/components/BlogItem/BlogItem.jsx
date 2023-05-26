@@ -10,6 +10,7 @@ import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import {yellow} from "@mui/material/colors";
 import Chip from "../utils/Chip/Chip";
 import { Avatar } from "@mui/material";
+import Skeleton from '@mui/material/Skeleton';
 
 const BlogItem = ({ post }) => {
   const content = useRef(null);
@@ -35,46 +36,65 @@ const BlogItem = ({ post }) => {
 
   return (
     <div className="blogitem">
-      <div
-        className="blogitem__thumbnail"
-        onClick={handleGetPost}
-        style={
-          post.imgPost
-            ? { backgroundImage: `url(${post.imgPost})` }
-            : { display: "none" }
-        }
-      >
-      </div>
+     { post ? 
+        <div
+          className="blogitem__thumbnail"
+          onClick={handleGetPost}
+          style={
+            post.imgPost
+              ? { backgroundImage: `url(${post.imgPost})` }
+              : { display: "none" }
+          }
+        >
+        </div>
+        :
+        <Skeleton sx={{ bgcolor: 'grey.800' }}  variant="rectangular" height={250} width={"100%"} />
+      }
+
 
       <div className="blogitem__container">
         <div className="blogitem__header">
           <div onClick={handleGetUser} className="blogitem__header__user">
-            <Avatar
-              src={
-                post.user.image
-                  ? post.user.image
-                  : post.user.sex === "male"
-                  ? male
-                  : female
-              }
-              alt=""
-            />
-            <span>{post.user.username}</span>
+            {post ? 
+              <Avatar
+                src={
+                  post.user.image
+                    ? post.user.image
+                    : post.user.sex === "male"
+                    ? male
+                    : female
+                }
+                alt=""
+              />
+              :
+              <Skeleton sx={{ bgcolor: 'grey.800' }} variant="circular" height={40} width={40} />
+            }
+            {post ? 
+              <span>{post.user.username}</span>
+              :
+              <Skeleton sx={{ bgcolor: 'grey.800' }} variant="text" style={{marginLeft: 10}} height={25} width={150} />
+            }
           </div>
-          <div className="blogitem__header__icon">
-            <RemoveRedEyeOutlinedIcon
-              className="blogitem__header__icon__view"
-              sx={{ fontSize: 25,color: yellow[800] }}
-              fontSize="large"
-            />
-            <span>{post.view}</span>
-          </div>
+          {post && 
+            <div className="blogitem__header__icon">
+              <RemoveRedEyeOutlinedIcon
+                className="blogitem__header__icon__view"
+                sx={{ fontSize: 25,color: yellow[800] }}
+                fontSize="large"
+              />
+              <span>{post.view}</span>
+            </div>
+          }
         </div>
 
         <div onClick={handleGetPost} className="blogitem__content">
           <div className="blogitem__content__text">
             <div className="blogitem__content__text__title">
+              {post ? 
               <h1>{post.title}</h1>
+              :
+              <Skeleton sx={{ bgcolor: 'grey.800' }} variant="text" height={80} width={380} />
+              }
             </div>
 
             {/* <div
@@ -84,20 +104,24 @@ const BlogItem = ({ post }) => {
           </div>
         </div>
 
-        <div className="blogitem__category">
-          {post.category.map((item, index) => (
-            <Chip
-              key={index}
-              className="blogitem__category__item"
-              text={item}
-              field={post.fields}
-            />
-          ))}
-        </div>
+        {post ? 
+          <div className="blogitem__category">
+            {post.category.map((item, index) => (
+              <Chip
+                key={index}
+                className="blogitem__category__item"
+                text={item}
+                field={post.fields}
+              />
+            ))}
+          </div>
+          :
+          <Skeleton sx={{ bgcolor: 'grey.800' }} variant="text" style={{marginLeft: 10}} height={70} width={380} />
+        }
 
-        <div className="blogitem__time">
+        {post && <div className="blogitem__time">
           <span style={{ userSelect: "none" }}>{GetTime(post.createdAt)}</span>
-        </div>
+        </div>}
       </div>
     </div>
   );

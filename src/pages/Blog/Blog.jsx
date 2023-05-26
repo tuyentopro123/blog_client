@@ -7,9 +7,16 @@ import Navbar from "../../components/Navbar/Navbar";
 import BlogItem from "../../components/BlogItem/BlogItem";
 import PaginationType from "../../components/Pagination/Pagination";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import { getAllPost } from "../../redux/apiRequest";
 import Grid from "../../components/utils/Grid/Grid";
+import Skeleton from '@mui/material/Skeleton';
+import {publicRequest} from "../../helpers/configAxios";
+import empty from "../../assets/img/empty.jpg"
 
+import {
+  getAllPostStart,
+  getAllPostSuccess,
+  getAllPostFailed,
+} from "../../redux/postSlice"
 
 const Blog = ({ fields }) => {
   const location = useLocation();
@@ -17,16 +24,32 @@ const Blog = ({ fields }) => {
   const query = new URLSearchParams(location.search);
   const currentPage = query.get("pagePost");
   const category = query.get("category");
-  const allPost = useSelector((state) => state.post.post.AllPost);
-
+  const [allPost,setAllPost] = useState(null);
   const pageNumber =
     allPost?.totalPost % 4 === 0
       ? Math.floor(allPost?.totalPost / 4)
       : Math.floor(allPost?.totalPost / 4) + 1;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+  // GET ALL POST
+  const getAllPost = async (dispatch,currentPagePost,field,category) => {
+    dispatch(getAllPostStart());
+    try {
+      if(category) {
+        const res = await publicRequest.get(`/v1/post/${field}?category=${category}&pagePost=${currentPagePost}`);
+        setAllPost(res.data);
+      } else {
+        const res = await publicRequest.get(`/v1/post/${field}?pagePost=${currentPagePost}`);
+        setAllPost(res.data);
+      }
+      dispatch(getAllPostSuccess());
+    } catch (err) {
+      dispatch(getAllPostFailed());
+      console.error(err)
+    }
+  };
   useEffect(() => {
+    setAllPost(null)
     window.scroll({
       top: 0,
       left: 0,
@@ -51,20 +74,34 @@ const Blog = ({ fields }) => {
       <main className="blog">
         <Navbar />
         <div className="blog__container">
-          <div className="blog__title">
-            {category ? <span>category : {category}</span> : <span>{fields}</span>}
-          </div>
+          {allPost ? 
+            <div className="blog__title">
+              {category ? <span>category : {category}</span> : <span>{fields}</span>}
+            </div>  
+            :
+            <Skeleton sx={{ bgcolor: 'grey.800' }} style={{borderRadius: ".5rem"}} variant="rectangular" height={100} width={"100%"} />
+          }
           <div className="blog__content">
             <div className="blog__content__list">
-              <Grid col={2} md={2} sm={1} gapCol={15} gapRow={10}>
-                {allPost?.post.length > 0 ? (
-                  allPost?.post.map((post, index) => (
-                    <BlogItem key={index} post={post} field={fields} />
-                  ))
-                ) : (
-                  <span>{`Chưa có bài viết nào về "${category}"`}</span>
-                )}
-              </Grid>
+              {allPost ? 
+                <Grid col={allPost?.post.length > 0 ? 2 : 1} md={2} sm={1} gapCol={15} gapRow={10}>
+                  {allPost?.post.length > 0 ? (
+                    allPost?.post.map((post, index) => (
+                      <BlogItem key={index} post={post} field={fields} />
+                    ))
+                  ) : (
+                    <div className="blog__empty">
+                      <span>{`Chưa có bài viết nào về "${category}"`}</span>
+                      <img src={empty} alt="" />
+                    </div>
+                  )}
+                </Grid>
+                :
+                <Grid col={2} md={2} sm={1} gapCol={15} gapRow={10}>
+                      <BlogItem key={1} post={null} field={fields} />
+                      <BlogItem key={2} post={null} field={fields} />
+                </Grid>
+              } 
             </div>
             {allPost?.post.length > 0 && (
               <PaginationType
@@ -75,7 +112,21 @@ const Blog = ({ fields }) => {
             )}
           </div>
         </div>
-        <Sidebar type={fields} />
+        {allPost ?  
+            <Sidebar type={fields} />
+            :
+            <Skeleton 
+              sx={{ bgcolor: 'grey.800' }} 
+              style={{borderRadius: ".5rem",
+                      margin: "0 1rem",
+                      position: "relative",
+                      top: "1rem"
+                }} 
+              variant="rectangular" 
+              height={600} 
+              width={600} 
+            />
+        }
       </main>
     </Helmet>
   );
