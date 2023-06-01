@@ -24,10 +24,9 @@ import "tippy.js/animations/shift-away-extreme.css";
 import toast, { Toaster } from "react-hot-toast";
 
 import { publicRequest } from "../../helpers/configAxios";
-import { emoji } from "../../raw/raw"
+import { emoji } from "../../raw/raw";
 
 const Comment = ({ comment, id, receive, listStatus }) => {
-
   const [replyComment, setReplyComment] = useState([]);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -177,21 +176,19 @@ const Comment = ({ comment, id, receive, listStatus }) => {
   };
   const handleCancelDelete = () => {
     receiveData({
-        delete: false,
-    })
-  }
+      delete: false,
+    });
+  };
 
   const handleAccessDelete = () => {
     receiveData({
-          delete: true,
-          user: comment.user._id,
-          comment:comment._id
-    })
-  }
+      delete: true,
+      user: comment.user._id,
+      comment: comment._id,
+    });
+  };
   const receiveData = (data) => {
     if (data.delete) {
-      console.log(data.user,
-        { comment: data.comment, post: comment.post },dispatch)
       toast.promise(
         deleteComment(
           data.user,
@@ -206,9 +203,8 @@ const Comment = ({ comment, id, receive, listStatus }) => {
       );
 
       setReplyComment(replyComment.filter((e) => e._id !== data.comment));
-    } 
+    }
     setVisible(false);
-    
   };
 
   return (
@@ -261,12 +257,12 @@ const Comment = ({ comment, id, receive, listStatus }) => {
                 <div className="comment__commentContent__body__setting">
                   <h2 onClick={handleDeleteComment}>Xóa bình luận</h2>
                   <DialogComponent
-                        handleAccessDelete={handleAccessDelete}
-                        handleCancelDelete={handleCancelDelete}
-                        title="Xóa bình luận"
-                        content={"Bạn có chắc muốn xóa bình luận ?"}
-                        visible={visible}
-                    />
+                    handleAccessDelete={handleAccessDelete}
+                    handleCancelDelete={handleCancelDelete}
+                    title="Xóa bình luận"
+                    content={"Bạn có chắc muốn xóa bình luận ?"}
+                    visible={visible}
+                  />
                 </div>
                 <div
                   className="comment__commentContent__body__icon"
@@ -439,13 +435,13 @@ const Comment = ({ comment, id, receive, listStatus }) => {
                   <div className="comment__commentContent__body__more">
                     <div className="comment__commentContent__body__setting">
                       <h2 onClick={handleDeleteComment}>Xóa bình luận</h2>
-                        <DialogComponent
-                          handleAccessDelete={handleAccessDelete}
-                          handleCancelDelete={handleCancelDelete}
-                          title="Xóa bình luận"
-                          content={"Bạn có chắc muốn xóa bình luận ?"}
-                          visible={visible}
-                        />
+                      <DialogComponent
+                        handleAccessDelete={handleAccessDelete}
+                        handleCancelDelete={handleCancelDelete}
+                        title="Xóa bình luận"
+                        content={"Bạn có chắc muốn xóa bình luận ?"}
+                        visible={visible}
+                      />
                     </div>
                     <div
                       className="comment__commentContent__body__icon"

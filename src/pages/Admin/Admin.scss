@@ -1,0 +1,91 @@
+@use "../../sass/index.scss" as *;
+
+.admin {
+  max-width: 140rem;
+  min-height: 100vh;
+  margin: auto;
+  padding: 2rem 10rem;
+
+  &__title {
+    h1 {
+      font-size: 3rem;
+    }
+  }
+
+  &__container {
+    background-color: $bg-color;
+    padding: 1.5rem;
+  }
+
+  &__content {
+    margin-top: 1rem;
+    padding: 1rem;
+    color: #fff;
+  }
+
+  &__navigate {
+    @include flex(center, flex-start);
+  }
+
+  &__button {
+    font-size: 1.5rem;
+    padding: 1rem 1rem 0.3rem 1rem;
+    border-top-left-radius: 0.8rem;
+    border-top-right-radius: 0.8rem;
+    border-top-right-radius: 0.8rem;
+    &.active {
+      background-color: #202020df;
+    }
+  }
+
+  &__info-table {
+    background-color: #202020df;
+    padding: 1rem;
+    h2 {
+      font-size: 2rem;
+      width: 100%;
+      text-align: center;
+      margin: 1rem 0 2rem 0;
+    }
+  }
+
+  &__btn {
+    width: 50%;
+    &.seen {
+      margin-right: 1rem;
+      background-color: $success-color;
+    }
+
+    &.delete {
+      margin-right: 1rem;
+      background-color: $error-color;
+    }
+  }
+}
+.MuiDataGrid-columnHeader,
+.MuiDataGrid-cell--withRenderer {
+  border-left: 1px solid #fff;
+}
+
+.MuiDataGrid-checkboxInput,
+.css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root {
+  color: #fff !important;
+}
+
+.MuiDataGrid-columnHeaderTitle {
+  color: #fff !important;
+  font-size: 15px;
+}
+
+.MuiDataGrid-menu,
+.MuiTooltip-popper {
+  transition: none !important;
+}
+
+.MuiListItemText-root span {
+  color: #000 !important;
+}
+
+.MuiDataGrid-menu > .MuiPaper-root {
+  width: 100% !important;
+}
