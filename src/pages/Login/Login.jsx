@@ -14,7 +14,7 @@ const Login = () => {
   };
 
   const handleFacebook = async () => {
-    window.open("http://localhost:8000/auth/facebook/callback", "_self");
+    window.open("https://my-blog-kfgs.vercel.app/auth/facebook", "_self");
   };
 
   return (
