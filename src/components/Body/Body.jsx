@@ -135,6 +135,7 @@ const Body = () => {
       try {
         const res = await publicRequest.get("/v1/post/path/home");
         setHomeList(res.data);
+        console.log(res.data);
         controller = null;
       } catch (err) {
         console.log(err);

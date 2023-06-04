@@ -16,6 +16,12 @@ const deleteUser = (user) => {
     icon: "🛠",
   });
 };
+
+const deletePost = (user) => {
+  toast("Chức năng hiện đang bảo trì", {
+    icon: "🛠",
+  });
+};
 const CustomCell = (value) => {
   const tooltipContent = (
     <div
@@ -160,7 +166,7 @@ export const ColumnsForPost = () => {
           >
             Xem
           </button>
-          <button className="admin__btn delete" onClick={() => deleteUser()}>
+          <button className="admin__btn delete" onClick={() => deletePost()}>
             Xóa
           </button>
         </div>
