@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import "./Header.scss";
-import { logOut } from "../../redux/apiRequest";
+import { logOut, searchItem } from "../../redux/apiRequest";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
@@ -8,9 +8,7 @@ import male from "../../assets/img/male.png";
 import female from "../../assets/img/female.png";
 import CreateSlug from "../utils/CreateSlug/CreateSlug";
 import { getNotification } from "../../redux/apiRequest";
-import {publicRequest} from "../../helpers/configAxios";
-
-
+import { publicRequest } from "../../helpers/configAxios";
 
 // Material ui
 import { yellow } from "@mui/material/colors";
@@ -19,13 +17,13 @@ import IconButton from "@mui/material/IconButton";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import Badge from "@mui/material/Badge";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
-import FaceIcon from '@mui/icons-material/Face';
-import DevicesIcon from '@mui/icons-material/Devices';
-import SettingsIcon from '@mui/icons-material/Settings';
-import { grey,amber } from "@mui/material/colors";
+import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
+import FaceIcon from "@mui/icons-material/Face";
+import DevicesIcon from "@mui/icons-material/Devices";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { grey, amber } from "@mui/material/colors";
 import { styled } from "@mui/material/styles";
-
+import CircularProgress from "@mui/material/CircularProgress";
 
 // Tippy
 import Tippy from "@tippyjs/react";
@@ -37,12 +35,13 @@ import HomeIcon from "@mui/icons-material/Home";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Notification from "../Notification/Notification";
-import ClearIcon from '@mui/icons-material/Clear';
+import ClearIcon from "@mui/icons-material/Clear";
 
-import toast, { Toaster } from 'react-hot-toast';
-const notifyWarning = (e) => toast(e, {
-  icon: '😅',
-});
+import toast, { Toaster } from "react-hot-toast";
+const notifyWarning = (e) =>
+  toast(e, {
+    icon: "😅",
+  });
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -55,14 +54,13 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-
-
 const Header = () => {
   const user = useSelector((state) => state.auth.login?.currentUser);
+  const loadingPost = useSelector((state) => state.post.isFetching);
   const notificationUser = useSelector(
     (state) => state.auth.login?.notification
   );
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState();
   // SOCKET IO
   const [notification, setNotification] = useState([]);
 
@@ -78,26 +76,21 @@ const Header = () => {
   };
 
   useEffect(() => {
-    setNotification(notificationUser)
+    setNotification(notificationUser);
   }, [notificationUser]);
 
   // GET NOTIFICATION
   const handleGetNotification = async (e) => {
-    if(user) {
-      setLoading(true);
+    if (user) {
       await getNotification(dispatch, user._id);
-      setLoading(false);
     } else {
-      notifyWarning("Bạn cần đăng nhập để sử dụng chức năng này")
+      notifyWarning("Bạn cần đăng nhập để sử dụng chức năng này");
     }
   };
 
-  
-
-
   // GET USER
   const handleGetUser = () => {
-    navigate(`/infor/${user._id}`,{state: user._id});
+    navigate(`/infor/${user._id}`, { state: user._id });
   };
 
   // GET POST USER
@@ -132,26 +125,17 @@ const Header = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [result, setResult] = useState([]);
-  const debounceSearchTerm = useDebounce(searchTerm, 200);
+  const debounceSearchTerm = useDebounce(searchTerm, 400);
+  const handleSearch = async (debounceSearchTerm) => {
+    let Result = await searchItem(dispatch, CreateSlug(debounceSearchTerm));
+    setResult(Result);
+  };
   useEffect(() => {
-    let controller = new AbortController();
     if (debounceSearchTerm) {
-      const searchItem = async () => {
-        try {
-          const res = await publicRequest.get(
-            `/v1/post/path/result?searchQuery=${CreateSlug(debounceSearchTerm)}`
-          );
-          setResult(res.data);
-          controller = null;
-        } catch (err) {
-          console.log(err);
-        }
-      };
-      searchItem();
+      handleSearch(debounceSearchTerm);
     } else {
       setResult([]);
     }
-    return () => controller?.abort();
   }, [debounceSearchTerm]);
 
   const handleFocus = () => {
@@ -164,13 +148,13 @@ const Header = () => {
 
   const handleSearchMobile = () => {
     document.querySelector(".header__searchMobile").classList.add("active");
-  }
+  };
 
   const handleCancelSearch = () => {
     document.querySelector(".header__searchMobile").classList.remove("active");
     input.current.value = "";
     listResult.current.classList.remove("active");
-  }
+  };
 
   // Material ui
 
@@ -195,18 +179,45 @@ const Header = () => {
     setState(open);
   };
 
+  const elementResult = () => {
+    return (
+      <ul>
+        {result.length > 0 ? (
+          result.map((item, key) => (
+            <li key={key}>
+              <div
+                className="header__body__result__item"
+                onClick={() => handleGetPost(item)}
+              >
+                <Avatar src={item.imgPost} />
+                <h2>{item.title}</h2>
+              </div>
+            </li>
+          ))
+        ) : (
+          <li>
+            <h2>{`Không có kết quả cho "${debounceSearchTerm}"`}</h2>
+          </li>
+        )}
+      </ul>
+    );
+  };
+
+  useEffect(() => {
+    setLoading(loadingPost);
+  }, [loadingPost]);
+  console.log(loadingPost);
   return (
     <div className="header">
       <Toaster
-                toastOptions={{
-                    className: '',
-                    style: {
-                        padding: '16px',
-                        fontSize:'13px',
-
-                    },
-                }}
-            />
+        toastOptions={{
+          className: "",
+          style: {
+            padding: "16px",
+            fontSize: "13px",
+          },
+        }}
+      />
       <div className="header__logo">
         <Link to="/" className="header__logo__img">
           <h2>VANTUYEN</h2>
@@ -216,7 +227,7 @@ const Header = () => {
       <div className="header__body">
         <div id="search" className="header__body__search">
           <div className="search">
-            <SearchIcon fontSize="large" sx={{color: yellow[800]}} />
+            <SearchIcon fontSize="large" sx={{ color: yellow[800] }} />
           </div>
           <input
             type="text"
@@ -237,32 +248,20 @@ const Header = () => {
           <div className="header__body__result__title">
             <h2>Bài viết</h2>
           </div>
-          <ul>
-            {result.length > 0 ? (
-              result.map((item, key) => (
-                <li key={key}>
-                  <div
-                    className="header__body__result__item"
-                    onClick={() => handleGetPost(item)}
-                  >
-                    <Avatar
-                      src={item.imgPost}
-                    />
-                    <h2>{item.title}</h2>
-                  </div>
-                </li>
-              ))
-            ) : (
-              <li><h2>{`Không có kết quả cho "${debounceSearchTerm}"`}</h2></li>
-            )}
-          </ul>
+          {loading ? (
+            <div style={{ padding: "2rem" }}>
+              {" "}
+              <CircularProgress color="secondary" />
+            </div>
+          ) : (
+            elementResult()
+          )}
         </div>
       </div>
 
       <div className="header__actions">
-        
         <span> {user ? `Hi, ${user.username}` : ""} </span>
-        {user && 
+        {user && (
           <Tippy
             arrow={false}
             interactive={true}
@@ -270,35 +269,45 @@ const Header = () => {
             trigger="click"
             animation="shift-away-extreme"
             duration={[150, 0]}
-            content={
-                <Notification data={notification}/>
-            }
+            content={<Notification data={notification} />}
           >
-            <div className="header__notification" onClick={handleGetNotification}>
+            <div
+              className="header__notification"
+              onClick={handleGetNotification}
+            >
               <IconButton size="small">
-                <StyledBadge badgeContent={user?.notification_count} color="error">
+                <StyledBadge
+                  badgeContent={user?.notification_count}
+                  color="error"
+                >
                   <div
                     className={`header__notification__icon ${
                       user?.notification_count > 0 && "active"
                     }`}
                   >
-                    <NotificationsIcon sx={{ fontSize: 25, color: grey[700] }} />
+                    <NotificationsIcon
+                      sx={{ fontSize: 25, color: grey[700] }}
+                    />
                   </div>
                 </StyledBadge>
               </IconButton>
             </div>
           </Tippy>
-        }
-            
+        )}
+
         <div className="header__account">
-          {user ?
+          {user ? (
             <div className="header__account__container">
               <div className="header__account__avatar ">
                 <IconButton size="small" onClick={handleClick}>
                   <Avatar
                     sx={{ width: 32, height: 32 }}
                     src={
-                      user.image ? user.image : user.sex === "male" ? male : female
+                      user.image
+                        ? user.image
+                        : user.sex === "male"
+                        ? male
+                        : female
                     }
                   />
                 </IconButton>
@@ -309,18 +318,20 @@ const Header = () => {
                   <Avatar
                     sx={{ width: 32, height: 32 }}
                     src={
-                      user.image ? user.image : user.sex === "male" ? male : female
+                      user.image
+                        ? user.image
+                        : user.sex === "male"
+                        ? male
+                        : female
                     }
                   />
                 </IconButton>
               </div>
               <div ref={edit} className="header__account__edit">
                 <div className="header__account__body">
-                  <div
-                    className="header__account__info"
-                    >
+                  <div className="header__account__info">
                     <Avatar
-                    onClick={handleGetUser}
+                      onClick={handleGetUser}
                       sx={{ width: 80, height: 80 }}
                       src={
                         user.image
@@ -341,12 +352,15 @@ const Header = () => {
                     </li>
                     <li onClick={handleCloseMenu}>
                       <PermIdentityIcon sx={{ fontSize: 30 }} />
-                      <div onClick={handleGetUser} style={{ cursor: "pointer" }}>
+                      <div
+                        onClick={handleGetUser}
+                        style={{ cursor: "pointer" }}
+                      >
                         Thông tin cá nhân
                       </div>
                     </li>
                     <li onClick={handleCloseMenu}>
-                      <SettingsIcon sx={{ fontSize: 30 }}/>
+                      <SettingsIcon sx={{ fontSize: 30 }} />
                       <Link to="/setting">Cài đặt</Link>
                     </li>
                     <li onClick={handleCloseMenu}>
@@ -402,14 +416,12 @@ const Header = () => {
                         </li>
                         <li onClick={handleCloseMenuMobile}>
                           <FaceIcon sx={{ fontSize: 30 }} />
-                          <Link to="/About">
-                            About
-                          </Link>
+                          <Link to="/About">About</Link>
                         </li>
-                      </ul> 
+                      </ul>
                       <ul>
                         <li onClick={handleCloseMenuMobile}>
-                          <SettingsIcon sx={{ fontSize: 30 }}/>
+                          <SettingsIcon sx={{ fontSize: 30 }} />
                           <Link to="/setting">Cài đặt</Link>
                         </li>
                         <li onClick={handleCloseMenuMobile}>
@@ -437,67 +449,66 @@ const Header = () => {
                 </React.Fragment>
               </div>
             </div>
-            :
-            <div className="header__account__login" >
-               <Link
-                    to={`/login`}
-                  >
+          ) : (
+            <div className="header__account__login">
+              <Link to={`/login`}>
                 <button>Đăng nhập</button>
               </Link>
             </div>
-
-          }
+          )}
         </div>
       </div>
 
       <div className="header__searchMobile">
         <div className="header__searchInner">
           <div className="header__searchInput">
-              <input 
-                type="text"
-                ref={input}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Bạn đang tìm kiếm điều gì"
-              />
+            <input
+              type="text"
+              ref={input}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Bạn đang tìm kiếm điều gì"
+            />
           </div>
 
           <div className="header__searchResult">
             <div
-                ref={listResultMobile}
-                className={`header__body__result__tablet ${
-                  searchTerm !== "" ? "active" : " "
-                }`}
-              >
-                <div className="header__body__result__title">
-                  <h2>Bài viết</h2>
-                </div>
-                <ul>
-                  {result.length > 0 ? (
-                    result.map((item, key) => (
-                      <li key={key}>
-                        <div
-                          className="header__body__result__item"
-                          onClick={() => handleGetPostMobile(item)}
-                        >
-                          <Avatar
-                            src={item.imgPost}
-                            sx={{ width: 60, height: 60 }}
-                          />
-                          <h2>{item.title}</h2>
-                        </div>
-                      </li>
-                    ))
-                  ) : (
-                    <li><h2>{`Không có kết quả cho "${debounceSearchTerm}"`}</h2></li>
-                  )}
-                </ul>
+              ref={listResultMobile}
+              className={`header__body__result__tablet ${
+                searchTerm !== "" ? "active" : " "
+              }`}
+            >
+              <div className="header__body__result__title">
+                <h2>Bài viết</h2>
+              </div>
+              <ul>
+                {result.length > 0 ? (
+                  result.map((item, key) => (
+                    <li key={key}>
+                      <div
+                        className="header__body__result__item"
+                        onClick={() => handleGetPostMobile(item)}
+                      >
+                        <Avatar
+                          src={item.imgPost}
+                          sx={{ width: 60, height: 60 }}
+                        />
+                        <h2>{item.title}</h2>
+                      </div>
+                    </li>
+                  ))
+                ) : (
+                  <li>
+                    <h2>{`Không có kết quả cho "${debounceSearchTerm}"`}</h2>
+                  </li>
+                )}
+              </ul>
             </div>
           </div>
         </div>
         <div className="header__searchClear" onClick={handleCancelSearch}>
-          <ClearIcon sx={{ fontSize: 50,color:amber[500] }}/>
+          <ClearIcon sx={{ fontSize: 50, color: amber[500] }} />
         </div>
       </div>
     </div>

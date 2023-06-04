@@ -79,6 +79,19 @@ const postSlice = createSlice({
       state.post.error = true;
     },
 
+    // SEARCH POST
+    searchPostStart: (state) => {
+      state.isFetching = true;
+    },
+    searchPostSuccess: (state) => {
+      state.isFetching = false;
+      state.post.error = false;
+    },
+    searchPostFailed: (state) => {
+      state.isFetching = false;
+      state.post.error = true;
+    },
+
     // FirstLoading
     startFirstLoading: (state) => {
       state.post.firstLoading = true;
@@ -112,6 +125,9 @@ export const {
   resetFirstLoading,
   FinishLoading,
   startFirstLoading,
+  searchPostStart,
+  searchPostSuccess,
+  searchPostFailed,
 } = postSlice.actions;
 
 export default postSlice.reducer;

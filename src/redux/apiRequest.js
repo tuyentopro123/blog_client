@@ -47,6 +47,9 @@ import {
   getAllPostAdminSuccess,
   getAllPostAdminFailed,
   resetFirstLoading,
+  searchPostStart,
+  searchPostSuccess,
+  searchPostFailed,
 } from "./postSlice";
 
 import {
@@ -225,6 +228,19 @@ export const updatePost = async (user, id, dispatch) => {
     dispatch(updateLikeSuccess(res.data));
   } catch (err) {
     dispatch(updateLikeFailed());
+  }
+};
+// SEARCH POST
+export const searchItem = async (dispatch, debounceSearchTerm) => {
+  dispatch(searchPostStart());
+  try {
+    const res = await publicRequest.get(
+      `/v1/post/path/result?searchQuery=${debounceSearchTerm}`
+    );
+    dispatch(searchPostSuccess());
+    return res.data;
+  } catch (err) {
+    dispatch(searchPostFailed());
   }
 };
 
