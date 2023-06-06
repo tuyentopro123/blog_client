@@ -9,6 +9,7 @@ import female from "../../assets/img/female.png";
 import CreateSlug from "../utils/CreateSlug/CreateSlug";
 import { getNotification } from "../../redux/apiRequest";
 import { publicRequest } from "../../helpers/configAxios";
+import headerIcon from "../../assets/img/icon_header.png";
 
 // Material ui
 import { yellow } from "@mui/material/colors";
@@ -57,13 +58,14 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 const Header = () => {
   const user = useSelector((state) => state.auth.login?.currentUser);
   const loadingPost = useSelector((state) => state.post.isFetching);
-  const notificationUser = useSelector(
-    (state) => state.auth.login?.notification
-  );
+  // const notificationUser = useSelector(
+  //   (state) => state.auth.login?.notification
+  // );
+  const [notificationUser, setNotificationUser] = useState([]);
   const [loading, setLoading] = useState();
   // SOCKET IO
   const [notification, setNotification] = useState([]);
-
+  console.log(notification);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -76,15 +78,14 @@ const Header = () => {
   };
 
   useEffect(() => {
-    setNotification(notificationUser);
-  }, [notificationUser]);
+    handleGetNotification();
+  }, []);
 
   // GET NOTIFICATION
   const handleGetNotification = async (e) => {
     if (user) {
-      await getNotification(dispatch, user._id);
-    } else {
-      notifyWarning("Bạn cần đăng nhập để sử dụng chức năng này");
+      const notification = await getNotification(dispatch, user._id);
+      setNotification(notification);
     }
   };
 
@@ -99,6 +100,7 @@ const Header = () => {
   const listResultMobile = useRef(null);
   const handleGetPost = async (item) => {
     input.current.value = "";
+    console.log(input.current);
     listResult.current.classList.remove("active");
     navigate(`/post/${item.slug}`, { state: item._id });
   };
@@ -206,7 +208,6 @@ const Header = () => {
   useEffect(() => {
     setLoading(loadingPost);
   }, [loadingPost]);
-  console.log(loadingPost);
   return (
     <div className="header">
       <Toaster
@@ -220,7 +221,8 @@ const Header = () => {
       />
       <div className="header__logo">
         <Link to="/" className="header__logo__img">
-          <h2>VANTUYEN</h2>
+          {/* <h2>VANTUYEN</h2> */}
+          <img style={{ width: "35%" }} src={headerIcon} alt="" />
         </Link>
       </div>
 
@@ -273,7 +275,7 @@ const Header = () => {
           >
             <div
               className="header__notification"
-              onClick={handleGetNotification}
+              // onClick={handleGetNotification}
             >
               <IconButton size="small">
                 <StyledBadge

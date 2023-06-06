@@ -17,11 +17,6 @@ const deleteUser = (user) => {
   });
 };
 
-const deletePost = (user) => {
-  toast("Chức năng hiện đang bảo trì", {
-    icon: "🛠",
-  });
-};
 const CustomCell = (value) => {
   const tooltipContent = (
     <div
@@ -118,8 +113,12 @@ export const ColumnsForUser = () => {
   ];
 };
 
-export const ColumnsForPost = () => {
+export const ColumnsForPost = (setVisible) => {
   const navigate = useNavigate();
+
+  const handleDeletePost = (post) => {
+    setVisible({ post: post, status: true });
+  };
 
   return [
     {
@@ -166,7 +165,10 @@ export const ColumnsForPost = () => {
           >
             Xem
           </button>
-          <button className="admin__btn delete" onClick={() => deletePost()}>
+          <button
+            className="admin__btn delete"
+            onClick={() => handleDeletePost(params.row)}
+          >
             Xóa
           </button>
         </div>

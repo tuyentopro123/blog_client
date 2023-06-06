@@ -67,6 +67,15 @@ import {
   deleteCommentFailed,
 } from "./commentSlice";
 
+import {
+  deletePostStart,
+  deletePostSuccess,
+  deletePostFailed,
+  getDataAdminStart,
+  getDataAdminSuccess,
+  getDataAdminFailed,
+} from "./adminSlice";
+
 // <-- ( AUTH ) ----------------------------->
 // LOGIN
 export const loginUser = async (dispatch) => {
@@ -134,21 +143,10 @@ export const getNotification = async (dispatch, id) => {
   dispatch(getNotificationStart());
   try {
     const res = await publicRequest.get("/v1/user/noti/" + id);
-    dispatch(getNotificationSuccess(res.data));
-  } catch (err) {
-    dispatch(getNotificationFailed(err));
-  }
-};
-
-// GET ALL USER
-export const getAllUser = async (dispatch) => {
-  dispatch(getAllUserStart());
-  try {
-    const res = await publicRequest.get("/v1/user/author");
-    dispatch(getAllUserSuccess(res.data));
+    dispatch(getNotificationSuccess());
     return res.data;
   } catch (err) {
-    dispatch(getAllUserFailed(err));
+    dispatch(getNotificationFailed(err));
   }
 };
 
@@ -208,18 +206,6 @@ export const getAllPost = async (
   }
 };
 
-// GET ALL POST ADMIN
-export const getAllPostAdmin = async (dispatch) => {
-  dispatch(getAllPostAdminStart());
-  try {
-    const res = await publicRequest.get(`/v1/post/all-post`);
-    dispatch(getAllPostAdminSuccess(res.data));
-    return res.data;
-  } catch (err) {
-    dispatch(getAllPostAdminFailed());
-  }
-};
-
 // UPDATE POST
 export const updatePost = async (user, id, dispatch) => {
   dispatch(updateLikeStart());
@@ -276,5 +262,29 @@ export const interComment = async (inter, id, dispatch) => {
     dispatch(interCommentSuccess(res.data));
   } catch (err) {
     dispatch(interCommentFailed(err));
+  }
+};
+
+// <-- ( ADMIN ) ----------------------------->
+// GET ALL USER ADMIN
+export const getDataAdmin = async (dispatch, type) => {
+  dispatch(getDataAdminStart());
+  try {
+    const res = await publicRequest.get(`/v1/admin/admin?type=${type}`);
+    dispatch(getDataAdminSuccess(res.data));
+    return res.data;
+  } catch (err) {
+    dispatch(getDataAdminFailed(err));
+  }
+};
+
+// DELETE POST
+export const deletePost = async (dispatch, id, user) => {
+  // dispatch(deletePostStart());
+  try {
+    const res = await publicRequest.post(`/v1/admin/delete/` + id, user);
+    // dispatch(deletePostSuccess());
+  } catch (err) {
+    dispatch(deletePostFailed(err));
   }
 };

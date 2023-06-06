@@ -3,6 +3,7 @@ import authReducer from "./authSlice";
 import userReducer from "./userSlice";
 import postReducer from "./postSlice";
 import commentReducer from "./commentSlice";
+import adminReducer from "./adminSlice";
 import {
   persistStore,
   persistReducer,
@@ -20,12 +21,13 @@ const persistConfig = {
   version: 1,
   storage,
 };
-const rootReducer = combineReducers({ 
-    auth: authReducer, 
-    user: userReducer, 
-    post: postReducer,
-    comment: commentReducer
-  });
+const rootReducer = combineReducers({
+  auth: authReducer,
+  user: userReducer,
+  post: postReducer,
+  comment: commentReducer,
+  admin: adminReducer,
+});
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
@@ -36,6 +38,6 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
-})
+});
 
 export let persistor = persistStore(store);

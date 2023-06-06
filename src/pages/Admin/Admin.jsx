@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Body from "../../components/Body/Body";
 import Helmet from "../../components/Helmet/Helmet";
-import { useSelector, useDispatch } from "react-redux";
-import { getAllPostAdmin, getAllUser } from "../../redux/apiRequest";
+import { useDispatch } from "react-redux";
+import { getDataAdmin } from "../../redux/apiRequest";
 import { Table } from "./Table";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -27,27 +27,23 @@ const Home = () => {
     },
   ];
 
-  const handleGetAllUser = async (index) => {
-    const users = await getAllUser(dispatch);
-    setRows({ data: users.user, status: index });
-  };
-  const handleGetAllPost = async (index) => {
-    const posts = await getAllPostAdmin(dispatch);
-    setRows({ data: posts.post, status: index });
+  const handleGetDataAdmin = async (index, type) => {
+    const data = await getDataAdmin(dispatch, type);
+    setRows({ data: data.result, status: index });
   };
 
   const handleFocus = async (index) => {
     if (rows.status !== index) {
       if (index === AdminConfig.USER) {
-        handleGetAllUser(index);
+        handleGetDataAdmin(index, AdminConfig.USER_STR);
       } else {
-        handleGetAllPost(index);
+        handleGetDataAdmin(index, AdminConfig.POST_STR);
       }
     }
   };
 
   useEffect(() => {
-    handleGetAllUser(AdminConfig.USER);
+    handleGetDataAdmin(AdminConfig.USER, AdminConfig.USER_STR);
   }, []);
 
   return (
@@ -80,7 +76,9 @@ const Home = () => {
                 </div>
               ))}
             </div>
-            {rows.data && <Table rows={rows} />}
+            {rows.data && (
+              <Table rows={rows} handleGetDataAdmin={handleGetDataAdmin} />
+            )}
           </div>
         </div>
       </main>
