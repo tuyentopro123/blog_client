@@ -401,7 +401,7 @@ const Body = () => {
 
             {homeList?.random ? (
               <div className="body__post__firstForm__sidebar">
-                <List header="Contact me" active="active">
+                <List header="Contact" active="active">
                   <div className="follow">
                     <div className="follow__image">
                       <img
