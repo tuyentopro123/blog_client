@@ -115,8 +115,8 @@ function App() {
           </div>
           <div className="footer__address__content">
             {/* <span>Số điện thoại: 0844097999</span> */}
-            <br />
-            <br />
+            {/* <br />
+            <br /> */}
             {/* <span>Email: tuyentopro123@gmail.com</span>
              */}
             <span>Email: PTIT@gmail.com</span>
