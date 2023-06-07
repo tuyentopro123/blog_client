@@ -223,15 +223,15 @@ function SpeedDialTooltip({ user }) {
       ),
       name: "Home",
     },
-    {
-      icon: (
-        <InfoIcon
-          onClick={() => handleNavigate("about")}
-          sx={{ fontSize: 25, color: amber[500] }}
-        />
-      ),
-      name: "About",
-    },
+    // {
+    //   icon: (
+    //     <InfoIcon
+    //       onClick={() => handleNavigate("about")}
+    //       sx={{ fontSize: 25, color: amber[500] }}
+    //     />
+    //   ),
+    //   name: "About",
+    // },
     {
       icon: (
         <AdminPanelSettingsIcon
