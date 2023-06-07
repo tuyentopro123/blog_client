@@ -25,7 +25,7 @@ const Login = () => {
           style={{ backgroundImage: `url(${bgLogin})` }}
         ></div>
         <div className="login__container">
-          <h2>VANTUYEN</h2>
+          <h2>DQT</h2>
           <h1>ĐĂNG NHẬP VÀO TRANG CHỦ</h1>
 
           <div className="login__society">
