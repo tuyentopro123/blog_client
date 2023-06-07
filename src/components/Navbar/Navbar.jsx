@@ -27,6 +27,7 @@ const Navbar = () => {
       h4: "Life",
       path: "/life",
     },
+
     // {
     //   Icon:FaceIcon,
     //   h4:"About me",
