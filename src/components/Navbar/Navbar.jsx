@@ -33,8 +33,6 @@ const Navbar = () => {
     //   path:'/about'
     // },
   ];
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   return (
     <div className="navbar">
