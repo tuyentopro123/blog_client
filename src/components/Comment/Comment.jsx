@@ -136,7 +136,6 @@ const Comment = ({ comment, id, receive, listStatus }) => {
     // }
     if (e.target.ariaAtomic) getReplyComment(comment._id);
   };
-
   // GET REPLY OF COMMENT
   const getReplyComment = async (id) => {
     setLoading(true);
@@ -144,6 +143,7 @@ const Comment = ({ comment, id, receive, listStatus }) => {
       const res = await publicRequest.get("/v1/comment/reply/" + id);
       setLoading(false);
       setReplyComment(res.data.comment);
+      document.getElementById(reply.reply)?.classList.add("active");
     } catch (err) {
       console.log(err);
     }
@@ -163,7 +163,7 @@ const Comment = ({ comment, id, receive, listStatus }) => {
   }, [listStatus]);
 
   useEffect(() => {
-    if (reply) {
+    if (reply && reply.reaction === comment._id) {
       getReplyComment(comment._id);
     }
     dispatch(setReplyCommentNoti());

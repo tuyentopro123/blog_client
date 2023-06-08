@@ -9,6 +9,7 @@ import BookmarksOutlinedIcon from "@mui/icons-material/BookmarksOutlined";
 import BookmarkOutlinedIcon from "@mui/icons-material/BookmarkOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import CircularProgress from "@mui/material/CircularProgress";
 
 // Skeleton
 import Skeleton from "@mui/material/Skeleton";
@@ -71,6 +72,7 @@ const DetailPost = () => {
   const [post, setPost] = useState();
   const [listStatus, setListStatus] = useState(true);
   const [relatedPost, setRelatedPost] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const [randomPost, setRandomPost] = useState();
 
@@ -104,11 +106,14 @@ const DetailPost = () => {
 
   // GET COMMENT
   const getComment = async (id) => {
+    setLoading(true);
     try {
       const res = await publicRequest.get("/v1/comment/comment/" + id);
       setComment(res.data);
+      setLoading(false);
       dispatch(resetFirstLoading());
     } catch (err) {
+      setLoading(false);
       console.log(err);
     }
   };
@@ -156,18 +161,6 @@ const DetailPost = () => {
       success: noti,
       error: "lỗi đường truyền",
     });
-    // if (post.like_user.filter((e) => e._id === currentUser._id).length === 0) {
-    //   socket.emit("sendNotification", {
-    //     sender_img: currentUser.image,
-    //     sender_user: currentUser.username,
-    //     action: "likePost",
-    //     action_icon: "heart",
-    //     createdAt: Date().now,
-    //     reaction: post._id,
-    //     user_receiver: post.user._id,
-    //     seen: false,
-    //   });
-    // }
   };
 
   // Handle save
@@ -209,16 +202,6 @@ const DetailPost = () => {
         error: "lỗi đường truyền",
       });
       await getComment(post._id);
-      // socket.emit("sendNotification", {
-      //   sender_img: currentUser.image,
-      //   sender_user: currentUser.username,
-      //   action: "comment",
-      //   action_icon: "comment",
-      //   createdAt: Date().now,
-      //   reaction: post._id,
-      //   user_receiver: post.user._id,
-      //   seen: false,
-      // });
       setListStatus(!listStatus);
       setNewComment({ ...newComment, comment: "" });
     }
@@ -237,11 +220,11 @@ const DetailPost = () => {
   };
   // Focus input
   const handleFocusComment = async () => {
+    document.getElementById("comment").classList.add("active");
+    document.getElementById("overlay").classList.add("active");
     if (firstLoading) {
       await getComment(post._id);
     }
-    document.getElementById("comment").classList.add("active");
-    document.getElementById("overlay").classList.add("active");
   };
 
   const handleOffComment = () => {
@@ -257,12 +240,11 @@ const DetailPost = () => {
       inline: "nearest",
     });
     if (reply) {
-      dispatch(getReplyCommentNoti(redirectNoti?.reaction));
+      dispatch(
+        getReplyCommentNoti({ reaction: redirectNoti?.reaction, reply: reply })
+      );
     }
-    console.log(document.getElementById(reply ? reply : id));
-    setTimeout(() => {
-      document.getElementById(reply ? reply : id)?.classList.add("active");
-    }, 500);
+    document.getElementById(reply ? reply : id)?.classList.add("active");
   };
 
   useEffect(() => {
@@ -572,30 +554,36 @@ const DetailPost = () => {
                   <button onClick={handleSubmit}>Bình luận</button>
                 </div>
               </div>
-              <div className="detailpost__idea__listComment">
-                {comment && (
-                  <div
-                    className={`detailpost__idea__listComment__content ${
-                      comment.length === 0 ? "active" : ""
-                    }`}
-                  >
-                    {comment.length === 0 ? (
-                      <span>Chưa có bình luận</span>
-                    ) : (
-                      comment.map((comment, key) => (
-                        <div key={key}>
-                          <Comment
-                            id={comment._id}
-                            comment={comment}
-                            receive={getComment}
-                            listStatus={listStatus}
-                          />
-                        </div>
-                      ))
-                    )}
-                  </div>
-                )}
-              </div>
+              {loading ? (
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <CircularProgress sx={{ fontSize: 20, color: amber[400] }} />
+                </div>
+              ) : (
+                <div className="detailpost__idea__listComment">
+                  {comment && (
+                    <div
+                      className={`detailpost__idea__listComment__content ${
+                        comment.length === 0 ? "active" : ""
+                      }`}
+                    >
+                      {comment.length === 0 ? (
+                        <span>Chưa có bình luận</span>
+                      ) : (
+                        comment.map((comment, key) => (
+                          <div key={key}>
+                            <Comment
+                              id={comment._id}
+                              comment={comment}
+                              receive={getComment}
+                              listStatus={listStatus}
+                            />
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>

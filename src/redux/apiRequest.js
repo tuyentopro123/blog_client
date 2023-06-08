@@ -138,6 +138,16 @@ export const updateUsers = async (user, dispatch, id) => {
   }
 };
 
+// NOTIFICATION COUNT
+export const getNotificationCount = async (id) => {
+  try {
+    const res = await publicRequest.get("/v1/user/count/" + id);
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 // NOTIFICATION
 export const getNotification = async (dispatch, id) => {
   dispatch(getNotificationStart());

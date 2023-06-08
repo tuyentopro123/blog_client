@@ -259,7 +259,7 @@ function SpeedDialTooltip({ user }) {
         />
       }
     >
-      {(user?.isAdmin ? actions : actions.slice(0, 3)).map((action) => (
+      {(user?.isAdmin ? actions : actions.slice(0, 2)).map((action) => (
         <SpeedDialAction
           key={action.name}
           icon={action.icon}

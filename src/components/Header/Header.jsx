@@ -1,13 +1,17 @@
 import React, { useRef, useEffect, useState } from "react";
 import "./Header.scss";
-import { logOut, searchItem } from "../../redux/apiRequest";
+import {
+  getNotificationCount,
+  logOut,
+  searchItem,
+  getNotification,
+} from "../../redux/apiRequest";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
 import male from "../../assets/img/male.png";
 import female from "../../assets/img/female.png";
 import CreateSlug from "../utils/CreateSlug/CreateSlug";
-import { getNotification } from "../../redux/apiRequest";
 import { publicRequest } from "../../helpers/configAxios";
 import headerIcon from "../../assets/img/icon_header.png";
 
@@ -61,11 +65,12 @@ const Header = () => {
   // const notificationUser = useSelector(
   //   (state) => state.auth.login?.notification
   // );
-  const [notificationUser, setNotificationUser] = useState([]);
   const [loading, setLoading] = useState();
   // SOCKET IO
-  const [notification, setNotification] = useState([]);
-  console.log(notification);
+  const [notification, setNotification] = useState({
+    data: [],
+    count: 0,
+  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -78,14 +83,22 @@ const Header = () => {
   };
 
   useEffect(() => {
-    handleGetNotification();
+    handleGetNotificationCount();
   }, []);
+
+  // GET NOTIFICATION COUNT
+  const handleGetNotificationCount = async (e) => {
+    if (user) {
+      const count = await getNotificationCount(user._id);
+      setNotification({ ...notification, count: count });
+    }
+  };
 
   // GET NOTIFICATION
   const handleGetNotification = async (e) => {
     if (user) {
       const notification = await getNotification(dispatch, user._id);
-      setNotification(notification);
+      setNotification({ data: notification, count: 0 });
     }
   };
 
@@ -271,20 +284,17 @@ const Header = () => {
             trigger="click"
             animation="shift-away-extreme"
             duration={[150, 0]}
-            content={<Notification data={notification} />}
+            content={<Notification data={notification.data} />}
           >
             <div
               className="header__notification"
-              // onClick={handleGetNotification}
+              onClick={handleGetNotification}
             >
               <IconButton size="small">
-                <StyledBadge
-                  badgeContent={user?.notification_count}
-                  color="error"
-                >
+                <StyledBadge badgeContent={notification.count} color="error">
                   <div
                     className={`header__notification__icon ${
-                      user?.notification_count > 0 && "active"
+                      notification.count > 0 && "active"
                     }`}
                   >
                     <NotificationsIcon
