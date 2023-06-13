@@ -73,13 +73,18 @@ const Header = () => {
   };
 
   useEffect(() => {
-    handleGetNotificationCount();
+    let isMounted = true;
+    handleGetNotificationCount(isMounted);
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // GET NOTIFICATION COUNT
-  const handleGetNotificationCount = async (e) => {
+  const handleGetNotificationCount = async (isMounted) => {
     if (user) {
       const count = await getNotificationCount(user._id);
+      if (!isMounted) return;
       setNotification({ ...notification, count: count });
     }
   };
@@ -101,15 +106,14 @@ const Header = () => {
   const input = useRef(null);
   const listResult = useRef(null);
   const listResultMobile = useRef(null);
-  const handleGetPost = async (item) => {
-    input.current.value = "";
-    console.log(input.current);
+  const handleGetPost = (item) => {
+    setSearchTerm("");
     listResult.current.classList.remove("active");
     navigate(`/post/${item.slug}`, { state: item._id });
   };
 
-  const handleGetPostMobile = async (item) => {
-    input.current.value = "";
+  const handleGetPostMobile = (item) => {
+    setSearchTerm("");
     listResultMobile.current.classList.remove("active");
     document.querySelector(".header__searchMobile").classList.remove("active");
     navigate(`/post/${item.slug}`, { state: item._id });
@@ -239,6 +243,7 @@ const Header = () => {
             ref={input}
             onFocus={handleFocus}
             onBlur={handleBlur}
+            value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Bạn đang tìm kiếm điều gì"
           />

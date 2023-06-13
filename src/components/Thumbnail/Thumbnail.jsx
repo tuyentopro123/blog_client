@@ -8,7 +8,6 @@ import female from "../../assets/img/female.png";
 import GetTime from "../../helpers/GetTime";
 
 const Thumbnail = ({ post, infor }) => {
-  console.log(post);
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.auth.login?.currentUser);
   // GET USER

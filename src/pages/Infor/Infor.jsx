@@ -131,7 +131,7 @@ const Infor = ({ save }) => {
       navigate(`/setting`, { state: user?._id });
     }
   };
-  console.log(user);
+
   // GET USER
   const getUsers = async (id) => {
     dispatch(getUserStart());
