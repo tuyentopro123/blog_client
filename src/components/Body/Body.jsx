@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./Body.scss";
-import List from "../utils/List/List";
-import Grid from "../utils/Grid/Grid";
+import List from "../common/List/List";
+import Grid from "../common/Grid/Grid";
 import Thumbnail from "../Thumbnail/Thumbnail";
-import Chip from "../utils/Chip/Chip";
+import Chip from "../common/Chip/Chip";
 import { useNavigate } from "react-router-dom";
 
 // Import material ui
@@ -28,15 +28,10 @@ import { getTimeString } from "../../helpers/GetTimeString";
 import { Navigation, Autoplay, EffectFlip } from "swiper";
 import PostItem from "../PostItem/PostItem";
 import MiniPost from "../MiniPost/MiniPost";
-import { Avatar } from "@mui/material";
 import { categories, social } from "../../raw/raw";
 
 const Body = () => {
   const [homeList, setHomeList] = useState();
-  const [listPost, setListPost] = useState();
-  const [viewPost, setViewPost] = useState();
-  const [popularPost, setPopularPost] = useState();
-  const [randomPost, setRandomPost] = useState();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);

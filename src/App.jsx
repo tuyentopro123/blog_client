@@ -22,7 +22,7 @@ import DetailPost from "./pages/DetailPost/DetailPost";
 import Admin from "./pages/Admin/Admin";
 import Setting from "./pages/Setting/Setting";
 import { io } from "socket.io-client";
-import { loginUser } from "./redux/apiRequest";
+import { loginUser } from "./redux/apiRequest/authRequest/authRequest";
 import ProgressBar from "./components/ProgressBar/ProgressBar";
 
 // material ui

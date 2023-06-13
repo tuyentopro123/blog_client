@@ -5,10 +5,10 @@ import {
   interComment,
   createComment,
   deleteComment,
-} from "../../redux/apiRequest";
-import DialogComponent from "../utils/Dialog/Dialog";
+} from "../../redux/apiRequest/commentRequest/commentRequest";
+import DialogComponent from "../common/Dialog/Dialog";
 import GetTime from "../../helpers/GetTime";
-import { setReplyCommentNoti } from "../../redux/commentSlice";
+import { setReplyCommentNoti } from "../../redux/apiSlice/commentSlice";
 // Material UI
 import Stack from "@mui/material/Stack";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -64,19 +64,6 @@ const Comment = ({ comment, id, receive, listStatus }) => {
     });
     await receive(comment.post);
     await getReplyComment(comment._id);
-
-    // if (currentUser._id !== e.target.name) {
-    //   socket.emit("sendNotification", {
-    //     sender_img: currentUser.image,
-    //     sender_user: currentUser.username,
-    //     action: "replyComment",
-    //     action_icon: "comment",
-    //     createdAt: Date().now,
-    //     reaction: e.target.id,
-    //     user_receiver: e.target.name,
-    //     seen: false,
-    //   });
-    // }
   };
 
   // cancel comment
@@ -122,18 +109,6 @@ const Comment = ({ comment, id, receive, listStatus }) => {
       success: "cập nhật thành công",
       error: "lỗi đường truyền",
     });
-    // if (currentUser._id !== e.target.ariaRequired) {
-    //   socket.emit("sendNotification", {
-    //     sender_img: currentUser.image,
-    //     sender_user: currentUser.username,
-    //     action: "interComment",
-    //     action_icon: e.target.accessKey || e.target.name,
-    //     createdAt: Date().now,
-    //     reaction: e.target.id,
-    //     user_receiver: e.target.ariaRequired,
-    //     seen: false,
-    //   });
-    // }
     if (e.target.ariaAtomic) getReplyComment(comment._id);
   };
   // GET REPLY OF COMMENT

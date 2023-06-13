@@ -1,13 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./Navbar.scss";
-import { useLocation, useNavigate, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useLocation, Link } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
-import FaceIcon from "@mui/icons-material/Face";
 import DevicesIcon from "@mui/icons-material/Devices";
 import { amber } from "@mui/material/colors";
-import { getAllPost } from "../../redux/apiRequest";
 
 const Navbar = () => {
   let currentPath = useLocation().pathname;

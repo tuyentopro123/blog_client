@@ -1,9 +1,9 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import authReducer from "./authSlice";
-import userReducer from "./userSlice";
-import postReducer from "./postSlice";
-import commentReducer from "./commentSlice";
-import adminReducer from "./adminSlice";
+import authReducer from "./apiSlice/authSlice";
+import userReducer from "./apiSlice/userSlice";
+import postReducer from "./apiSlice/postSlice";
+import commentReducer from "./apiSlice/commentSlice";
+import adminReducer from "./apiSlice/adminSlice";
 import {
   persistStore,
   persistReducer,

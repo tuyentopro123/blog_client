@@ -4,7 +4,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Body from "../../components/Body/Body";
 import Helmet from "../../components/Helmet/Helmet";
 import { useDispatch } from "react-redux";
-import { getDataAdmin } from "../../redux/apiRequest";
+import { getDataAdmin } from "../../redux/apiRequest/adminRequest/adminRequest";
 import { Table } from "./Table";
 import toast, { Toaster } from "react-hot-toast";
 

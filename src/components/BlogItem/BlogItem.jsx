@@ -1,42 +1,30 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./BlogItem.scss";
 import GetTime from "../../helpers/GetTime";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import male from "../../assets/img/male.png";
 import female from "../../assets/img/female.png";
 
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import {yellow} from "@mui/material/colors";
-import Chip from "../utils/Chip/Chip";
+import { yellow } from "@mui/material/colors";
+import Chip from "../common/Chip/Chip";
 import { Avatar } from "@mui/material";
-import Skeleton from '@mui/material/Skeleton';
+import Skeleton from "@mui/material/Skeleton";
 
 const BlogItem = ({ post }) => {
-  const content = useRef(null);
   const navigate = useNavigate();
-  const currentUser = useSelector((state) => state.auth.login?.currentUser);
-  const [refresh,setRefresh] = useState(true)
   // GET USER
   const handleGetUser = async () => {
-    navigate(`/infor/${post.user._id}`,{state: post.user_id});
+    navigate(`/infor/${post.user._id}`, { state: post.user_id });
   };
   const handleGetPost = () => {
-    navigate(`/post/${post.slug}`,{state: post._id});
+    navigate(`/post/${post.slug}`, { state: post._id });
   };
-  // useEffect(() => {
-  //   let domParser = new DOMParser();
-  //   let doc = domParser.parseFromString(post.content, "text/html");
-  //   console.log(doc)
-  //   doc.body.childNodes.forEach((node) => {
-  //     content.current.appendChild(node.cloneNode(true));
-  //   });
-  //   setRefresh(!refresh)
-  // }, [post.content]);
 
   return (
     <div className="blogitem">
-     { post ? 
+      {post ? (
         <div
           className="blogitem__thumbnail"
           onClick={handleGetPost}
@@ -45,17 +33,20 @@ const BlogItem = ({ post }) => {
               ? { backgroundImage: `url(${post.imgPost})` }
               : { display: "none" }
           }
-        >
-        </div>
-        :
-        <Skeleton sx={{ bgcolor: 'grey.800' }}  variant="rectangular" height={250} width={"100%"} />
-      }
-
+        ></div>
+      ) : (
+        <Skeleton
+          sx={{ bgcolor: "grey.800" }}
+          variant="rectangular"
+          height={250}
+          width={"100%"}
+        />
+      )}
 
       <div className="blogitem__container">
         <div className="blogitem__header">
           <div onClick={handleGetUser} className="blogitem__header__user">
-            {post ? 
+            {post ? (
               <Avatar
                 src={
                   post.user.image
@@ -66,35 +57,51 @@ const BlogItem = ({ post }) => {
                 }
                 alt=""
               />
-              :
-              <Skeleton sx={{ bgcolor: 'grey.800' }} variant="circular" height={40} width={40} />
-            }
-            {post ? 
+            ) : (
+              <Skeleton
+                sx={{ bgcolor: "grey.800" }}
+                variant="circular"
+                height={40}
+                width={40}
+              />
+            )}
+            {post ? (
               <span>{post.user.username}</span>
-              :
-              <Skeleton sx={{ bgcolor: 'grey.800' }} variant="text" style={{marginLeft: 10}} height={25} width={150} />
-            }
+            ) : (
+              <Skeleton
+                sx={{ bgcolor: "grey.800" }}
+                variant="text"
+                style={{ marginLeft: 10 }}
+                height={25}
+                width={150}
+              />
+            )}
           </div>
-          {post && 
+          {post && (
             <div className="blogitem__header__icon">
               <RemoveRedEyeOutlinedIcon
                 className="blogitem__header__icon__view"
-                sx={{ fontSize: 25,color: yellow[800] }}
+                sx={{ fontSize: 25, color: yellow[800] }}
                 fontSize="large"
               />
               <span>{post.view}</span>
             </div>
-          }
+          )}
         </div>
 
         <div onClick={handleGetPost} className="blogitem__content">
           <div className="blogitem__content__text">
             <div className="blogitem__content__text__title">
-              {post ? 
-              <h1>{post.title}</h1>
-              :
-              <Skeleton sx={{ bgcolor: 'grey.800' }} variant="text" height={80} width={380} />
-              }
+              {post ? (
+                <h1>{post.title}</h1>
+              ) : (
+                <Skeleton
+                  sx={{ bgcolor: "grey.800" }}
+                  variant="text"
+                  height={80}
+                  width={380}
+                />
+              )}
             </div>
 
             {/* <div
@@ -104,7 +111,7 @@ const BlogItem = ({ post }) => {
           </div>
         </div>
 
-        {post ? 
+        {post ? (
           <div className="blogitem__category">
             {post.category.map((item, index) => (
               <Chip
@@ -115,13 +122,23 @@ const BlogItem = ({ post }) => {
               />
             ))}
           </div>
-          :
-          <Skeleton sx={{ bgcolor: 'grey.800' }} variant="text" style={{marginLeft: 10}} height={70} width={380} />
-        }
+        ) : (
+          <Skeleton
+            sx={{ bgcolor: "grey.800" }}
+            variant="text"
+            style={{ marginLeft: 10 }}
+            height={70}
+            width={380}
+          />
+        )}
 
-        {post && <div className="blogitem__time">
-          <span style={{ userSelect: "none" }}>{GetTime(post.createdAt)}</span>
-        </div>}
+        {post && (
+          <div className="blogitem__time">
+            <span style={{ userSelect: "none" }}>
+              {GetTime(post.createdAt)}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

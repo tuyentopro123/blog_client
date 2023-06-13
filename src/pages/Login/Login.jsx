@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./Login.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../redux/apiRequest";
 import bgLogin from "../../assets/img/bg-mobile.webp";
 import Helmet from "../../components/Helmet/Helmet";
 import facebook from "../../assets/img/facebook.png";
@@ -38,12 +37,12 @@ const Login = () => {
               <span>Đăng nhập với Facebook</span>
             </div>
           </div>
-          <div className="login__footer">
+          {/* <div className="login__footer">
             Bạn chưa có tài khoản?
             <Link to="/register">
               <button>Đăng ký</button>
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </Helmet>

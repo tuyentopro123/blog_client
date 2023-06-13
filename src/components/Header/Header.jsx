@@ -2,17 +2,16 @@ import React, { useRef, useEffect, useState } from "react";
 import "./Header.scss";
 import {
   getNotificationCount,
-  logOut,
-  searchItem,
   getNotification,
-} from "../../redux/apiRequest";
+} from "../../redux/apiRequest/userRequest/userRequest";
+import { logOut } from "../../redux/apiRequest/authRequest/authRequest";
+import { searchItem } from "../../redux/apiRequest/postRequest/postRequest";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
 import male from "../../assets/img/male.png";
 import female from "../../assets/img/female.png";
-import CreateSlug from "../utils/CreateSlug/CreateSlug";
-import { publicRequest } from "../../helpers/configAxios";
+import CreateSlug from "../common/CreateSlug/CreateSlug";
 import headerIcon from "../../assets/img/icon_header.png";
 
 // Material ui
@@ -43,11 +42,6 @@ import Notification from "../Notification/Notification";
 import ClearIcon from "@mui/icons-material/Clear";
 
 import toast, { Toaster } from "react-hot-toast";
-const notifyWarning = (e) =>
-  toast(e, {
-    icon: "😅",
-  });
-
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
     right: 0,
@@ -62,11 +56,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 const Header = () => {
   const user = useSelector((state) => state.auth.login?.currentUser);
   const loadingPost = useSelector((state) => state.post.isFetching);
-  // const notificationUser = useSelector(
-  //   (state) => state.auth.login?.notification
-  // );
   const [loading, setLoading] = useState();
-  // SOCKET IO
   const [notification, setNotification] = useState({
     data: [],
     count: 0,

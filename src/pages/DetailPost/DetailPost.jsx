@@ -22,21 +22,21 @@ import { publicRequest } from "../../helpers/configAxios";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
-import { createComment } from "../../redux/apiRequest";
+import { createComment } from "../../redux/apiRequest/commentRequest/commentRequest";
 import {
   getReplyCommentNoti,
   resetCommentOfPost,
-} from "../../redux/commentSlice";
-import { redirectNotificationFinish } from "../../redux/authSlice";
+} from "../../redux/apiSlice/commentSlice";
+import { redirectNotificationFinish } from "../../redux/apiSlice/authSlice";
 import {
   startFirstLoading,
   FinishLoading,
   resetFirstLoading,
-} from "../../redux/postSlice";
+} from "../../redux/apiSlice/postSlice";
 import LazyLoad from "react-lazyload";
 
 import Comment from "../../components/Comment/Comment";
-import Chip from "../../components/utils/Chip/Chip";
+import Chip from "../../components/common/Chip/Chip";
 import RelatedPost from "../../components/RelatedPost/RelatedPost";
 
 import toast, { Toaster } from "react-hot-toast";

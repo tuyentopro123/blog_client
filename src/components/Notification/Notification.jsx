@@ -12,7 +12,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { emojiNoti } from "../../raw/raw";
 // import { getUserPost } from "../../redux/apiRequest"
 
-import { redirectNotificationStart } from "../../redux/authSlice";
+import { redirectNotificationStart } from "../../redux/apiSlice/authSlice";
 
 const Notification = ({ data }) => {
   const user = useSelector((state) => state.auth.login?.currentUser);

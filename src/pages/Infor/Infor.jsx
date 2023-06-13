@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 import "./Infor.scss";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteUser, updateUsers } from "../../redux/apiRequest";
-import { getUserStart, getUserSuccess } from "../../redux/userSlice";
+import {
+  deleteUser,
+  updateUsers,
+} from "../../redux/apiRequest/userRequest/userRequest";
+import { getUserStart, getUserSuccess } from "../../redux/apiSlice/userSlice";
 
 import { publicRequest } from "../../helpers/configAxios";
 
 import male from "../../assets/img/male.png";
 import female from "../../assets/img/female.png";
-import Grid from "../../components/utils/Grid/Grid";
+import Grid from "../../components/common/Grid/Grid";
 
 import Thumbnail from "../../components/Thumbnail/Thumbnail";
 import Helmet from "../../components/Helmet/Helmet";
@@ -36,8 +39,8 @@ import Skeleton from "@mui/material/Skeleton";
 
 import toast, { Toaster } from "react-hot-toast";
 import GetTime from "../../helpers/GetTime";
-import Button from "../../components/utils/Button/Button";
-import DialogComponent from "../../components/utils/Dialog/Dialog";
+import Button from "../../components/common/Button/Button";
+import DialogComponent from "../../components/common/Dialog/Dialog";
 const notify = () => toast.success("Cập nhật ảnh đại diện thành công");
 
 const Infor = ({ save }) => {

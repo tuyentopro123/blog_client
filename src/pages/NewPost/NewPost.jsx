@@ -8,7 +8,7 @@ import bg from "../../assets/img/thumbnail.jpg";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import CreateSlug from "../../components/utils/CreateSlug/CreateSlug";
+import CreateSlug from "../../components/common/CreateSlug/CreateSlug";
 import { publicRequest } from "../../helpers/configAxios";
 
 import Chip from "@mui/material/Chip";

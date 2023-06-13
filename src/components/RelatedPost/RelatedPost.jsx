@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import "./RelatedPost.scss";
-import Chip from "../utils/Chip/Chip";
+import Chip from "../common/Chip/Chip";
 import GetTime from "../../helpers/GetTime";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { amber } from "@mui/material/colors";

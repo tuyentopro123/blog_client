@@ -3,7 +3,7 @@ import "./Author.scss";
 import Navbar from "../../components/Navbar/Navbar";
 import Helmet from "../../components/Helmet/Helmet";
 import Item from "./AuthorItem";
-import Grid from "../../components/utils/Grid/Grid";
+import Grid from "../../components/common/Grid/Grid";
 import PaginationType from "../../components/Pagination/Pagination";
 
 import { useSelector } from "react-redux";

@@ -7,8 +7,8 @@ import {teal,amber,grey,blueGrey} from '@mui/material/colors';
 import {publicRequest} from "../../helpers/configAxios";
 
 
-import Chip from '../utils/Chip/Chip';
-import List  from '../utils/List/List';
+import Chip from '../common/Chip/Chip';
+import List  from '../common/List/List';
 import { Link } from 'react-router-dom';
 
 const Sidebar = ({type}) => {
