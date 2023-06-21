@@ -4,6 +4,7 @@ import { useLocation, Link } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
 import DevicesIcon from "@mui/icons-material/Devices";
+import FaceIcon from "@mui/icons-material/Face";
 import { amber } from "@mui/material/colors";
 
 const Navbar = () => {
@@ -24,11 +25,11 @@ const Navbar = () => {
       h4: "Life",
       path: "/life",
     },
-    // {
-    //   Icon:FaceIcon,
-    //   h4:"About me",
-    //   path:'/about'
-    // },
+    {
+      Icon: FaceIcon,
+      h4: "About me",
+      path: "/about",
+    },
   ];
 
   return (

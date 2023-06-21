@@ -1,72 +1,77 @@
-@use '../../sass/index.scss' as *;
+@use "../../sass/index.scss" as *;
 
 .blog {
-    position: relative;
-    top: 1rem;
-    display: flex;
-    min-height:100vh;
+  position: relative;
+  top: 1rem;
+  display: flex;
+  min-height: 100vh;
+  @include tablet {
+    flex-direction: column;
+  }
+  &__container {
+    margin: 1rem 3rem;
+    width: 100%;
     @include tablet {
-        flex-direction: column;
+      width: initial;
+      margin-top: 9rem;
     }
-    &__container {
-        margin: 1rem 3rem;
-        width: 100%;
-        @include tablet {
-            width: initial;
-            margin-top: 9rem;
-        }
-    }
+  }
 
-    &__title {
-        width: 100%;
-        padding:3rem 2rem;
-        background: rgba(243, 248, 251, 0.6);
-        border-radius: .5rem;
-        span {
-            font-size: 4rem;
-            font-weight: bold;
-            text-transform:capitalize;
-            color: #041B3A;
-            @include tablet {
-               font-size: 3rem;
-            }
-        }
+  &__title {
+    width: 100%;
+    padding: 3rem 2rem;
+    background: rgba(243, 248, 251, 0.6);
+    border-radius: 0.5rem;
+    span {
+      font-size: 4rem;
+      font-weight: bold;
+      text-transform: capitalize;
+      color: #041b3a;
+      @include tablet {
+        font-size: 3rem;
+      }
     }
+  }
 
-    &__content {
-        min-height:50vh;
-        &__list {
-            & > span {
-                font-size: 3rem;
-                width: 100%;
-                margin:4rem 0;
-            }
-        }
+  &__content {
+    min-height: 50vh;
+    nav {
+      li button {
+        color: #fff;
+      }
     }
-
-    &__empty {
-        margin-top: 20px;
-        font-size: 2.5rem;
+    &__list {
+      & > span {
+        font-size: 3rem;
         width: 100%;
-        display: flex;
-        flex-direction: column-reverse;
-        background-color: $bg-color;
-        justify-content: center;
-        align-items: center;
-        border-radius: .5rem;
-        img {
-            width: 27%;
-            margin-top: 6rem;
-            border-radius: 50%;
-        }
-        span {
-            margin-top: 2rem;
-            margin-bottom: 3rem;
-        }
+        margin: 4rem 0;
+      }
     }
+  }
+
+  &__empty {
+    margin-top: 20px;
+    font-size: 2.5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: $bg-color;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+    img {
+      width: 27%;
+      margin-top: 6rem;
+      border-radius: 50%;
+    }
+    span {
+      margin-top: 2rem;
+      margin-bottom: 3rem;
+    }
+  }
 }
 
 .MuiSkeleton-root {
-    margin-top: 0!important;
-    margin-bottom: 0!important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }

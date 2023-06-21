@@ -19,6 +19,7 @@ import {
 } from "../../redux/apiSlice/postSlice";
 
 const Blog = ({ fields }) => {
+  console.log(fields);
   const location = useLocation();
   const pathname = location.pathname;
   const query = new URLSearchParams(location.search);

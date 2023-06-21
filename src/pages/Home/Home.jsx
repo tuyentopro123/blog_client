@@ -11,7 +11,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <Helmet title="DQT">
+    <Helmet title="VANTUYEN">
       <main className="home">
         <Navbar />
         <Body />

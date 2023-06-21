@@ -109,22 +109,16 @@ function App() {
       <div className="footer">
         <div className="footer__address">
           <div className="footer__address__title">
-            <h1>HỌC VIỆN CÔNG NGHỆ BƯU CHÍNH VIỄN THÔNG</h1>
-            {/* <h1>VANTUYEN</h1>
-            <span>never give up</span> */}
+            <h1>VANTUYEN</h1>
+            <span>never give up</span>
           </div>
           <div className="footer__address__content">
-            {/* <span>Số điện thoại: 0844097999</span> */}
-            {/* <br />
-            <br /> */}
-            {/* <span>Email: tuyentopro123@gmail.com</span>
-             */}
-            <span>Email: PTIT@gmail.com</span>
+            <span>Số điện thoại: 0844097999</span>
+            <br />
+            <br />
+            <span>Email: tuyentopro123@gmail.com</span>
 
-            <br />
-            <br />
-            <span>Km 10, Trần Phú, P. Mộ Lao, Q. Hà Đông, Tp. Hà Nội</span>
-            {/* <span>Địa chỉ: ngõ 5, Lương Ngọc Quyến, quận Hà Đông, Hà Nội</span> */}
+            <span>Địa chỉ: ngõ 5, Lương Ngọc Quyến, quận Hà Đông, Hà Nội</span>
             <br />
           </div>
         </div>
@@ -174,7 +168,7 @@ function App() {
             </div>
           </div>
 
-          {/* <div className="footer__navigate">
+          <div className="footer__navigate">
             <div className="footer__navigate__title">
               <h2>Blog bạn bè</h2>
             </div>
@@ -185,11 +179,11 @@ function App() {
                 </li>
               </ul>
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
       <div className="copyRight">
-        <span>© 2022 DQT. All rights reserved.</span>
+        <span>© 2022 Vantuyen. All rights reserved.</span>
       </div>
     </div>
   );
@@ -223,15 +217,15 @@ function SpeedDialTooltip({ user }) {
       ),
       name: "Home",
     },
-    // {
-    //   icon: (
-    //     <InfoIcon
-    //       onClick={() => handleNavigate("about")}
-    //       sx={{ fontSize: 25, color: amber[500] }}
-    //     />
-    //   ),
-    //   name: "About",
-    // },
+    {
+      icon: (
+        <InfoIcon
+          onClick={() => handleNavigate("about")}
+          sx={{ fontSize: 25, color: amber[500] }}
+        />
+      ),
+      name: "About",
+    },
     {
       icon: (
         <AdminPanelSettingsIcon

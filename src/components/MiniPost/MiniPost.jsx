@@ -12,8 +12,6 @@ import { red } from "@mui/material/colors";
 
 const MiniPost = ({ post }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.auth.login?.currentUser);
 
   // GET POST
   const handleGetPost = async () => {
