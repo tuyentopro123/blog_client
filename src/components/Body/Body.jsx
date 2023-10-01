@@ -301,10 +301,7 @@ const Body = () => {
 
           <div className="body__post__thirdForm">
             {homeList?.random ? (
-              <List
-                header="You Don't miss"
-                style={{ paddingBottom: 0, minHeight: "75vh" }}
-              >
+              <List header="You Don't miss" style={{ minHeight: "75vh" }}>
                 <div className="body__post__thirdForm__container">
                   <Swiper {...swiperOptionsV3}>
                     {Object.keys(homeList?.random).length > 0 &&

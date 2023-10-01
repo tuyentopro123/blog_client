@@ -1,22 +1,21 @@
-@use '../../sass/index.scss' as *;
+@use "../../sass/index.scss" as *;
 
 .home {
-    position: relative;
-    top: 1rem;
-    display: flex;
-    height:365vh;
-    @include mobile {
-        min-height:initial;
-    }
+  position: relative;
+  top: 1rem;
+  display: flex;
+  height: 400vh;
+  @include mobile {
+    min-height: initial;
+  }
 
-    @include tablet {
-        display:inherit;
-        min-height:435vh;
-    }
+  @include tablet {
+    display: inherit;
+    min-height: 435vh;
+  }
 
-    // @include tablet-mini {
-    //     display:inherit;
-    //     min-height:380vh;
-    // }
-    
+  // @include tablet-mini {
+  //     display:inherit;
+  //     min-height:380vh;
+  // }
 }
